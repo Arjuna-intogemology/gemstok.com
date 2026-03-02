@@ -442,6 +442,106 @@ p, a, span, .hero-description, .btn-vault {
 }
 
 /* =========================================
+   7. DIRECTORY GRID
+   ========================================= */
+#directory-part {
+    padding: 60px 25px 100px 25px;
+    background: #050505;
+    position: relative;
+    z-index: 5;
+}
+
+.directory-container {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.dir-box {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    height: 130px; /* Slim state */
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.dir-box:hover {
+    height: 300px; /* Expanded state */
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--neon-blue);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.dir-num {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--neon-blue);
+    font-size: 0.8rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.dir-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.dir-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-top: 25px;
+    opacity: 0; 
+    transition: opacity 0.4s ease;
+}
+
+.dir-box:hover .dir-text {
+    opacity: 1;
+}
+
+.dir-link {
+    display: inline-block;
+    margin-top: 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    color: var(--neon-blue);
+    text-decoration: none;
+    letter-spacing: 2px;
+    opacity: 0;
+    border-bottom: 1px solid transparent;
+    transition: 0.4s;
+}
+
+.dir-box:hover .dir-link {
+    opacity: 1;
+    border-bottom: 1px solid var(--neon-blue);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .directory-container {
+        flex-direction: column;
+    }
+    .dir-box {
+        width: 100%;
+        height: auto; /* Static height on mobile for better UX */
+        padding: 25px;
+    }
+    .dir-text, .dir-link {
+        opacity: 1;
+    }
+}
+
+/* =========================================
     RESPONSIVE OVERRIDES (Mobile Fixes)
    ========================================= */
 @media (max-width: 768px) {
