@@ -605,6 +605,59 @@ p, a, span, .hero-description, .btn-vault {
 }
 
 /* =========================================
+   9. CONTACT HUB (SMM & Trade Inquiries)
+   ========================================= */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.contact-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.contact-card:hover {
+    border-color: var(--neon-blue);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.contact-card i {
+    font-size: 2.5rem;
+    color: var(--neon-blue);
+    margin-bottom: 20px;
+}
+
+.contact-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    color: var(--text-main);
+    margin-bottom: 15px;
+}
+
+.contact-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 25px;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    transition: 0.3s;
+}
+
+.contact-btn:hover {
+    background: var(--neon-blue);
+    color: #000;
+}   
+
+/* =========================================
     RESPONSIVE OVERRIDES (Mobile Fixes)
    ========================================= */
 @media (max-width: 768px) {
