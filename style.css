@@ -63,3 +63,92 @@ p, a, span, .mono {
     margin: 60px auto 20px auto;
     color: var(--neon-blue);
 }
+
+/* =========================================
+   2. HEADER & NAVIGATION
+   ========================================= */
+.gemstok-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(5, 5, 5, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: var(--transition-smooth);
+    padding: 12px 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    letter-spacing: 5px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 0 15px rgba(0, 217, 255, 0.6);
+    text-decoration: none;
+}
+
+.icon-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-item i {
+    font-size: 14px;
+    color: var(--neon-blue);
+    opacity: 0.3;
+    transition: 0.3s;
+}
+
+.nav-item:hover i {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px var(--neon-blue));
+}
+
+.nav-user-icon {
+    background: transparent;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    color: var(--neon-blue);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+/* Scrolled State Logic */
+.gemstok-nav.scrolled {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border-bottom: none !important;
+    pointer-events: none; 
+}
+
+.gemstok-nav.scrolled .logo, 
+.gemstok-nav.scrolled .nav-item {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.gemstok-nav.scrolled .nav-user-icon {
+    pointer-events: auto;
+    position: fixed;
+    top: 15px;
+    right: 25px;
+    background: rgba(5, 5, 5, 0.8);
+    backdrop-filter: blur(10px);
+}
