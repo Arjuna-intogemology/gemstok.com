@@ -100,3 +100,8 @@ function checkAuth() {
 
 // Run the guard immediately
 checkAuth();
+
+function logout() {
+    localStorage.removeItem('gemstok_token');
+    window.location.href = 'signin.html';
+}
