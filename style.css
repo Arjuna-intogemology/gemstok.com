@@ -1,5 +1,5 @@
 /* =========================================
-   1. BRAND DNA (Global Variables)
+   1.1 BRAND DNA (Global Variables)
    ========================================= */
 :root {
     /* Fonts */
@@ -17,7 +17,7 @@
 }
 
 /* =========================================
-   2. GLOBAL RESET (Mobile Precision)
+   1.2 GLOBAL RESET (Mobile Precision)
    ========================================= */
 * {
     margin: 0;
@@ -38,7 +38,7 @@ html, body {
 }
 
 /* =========================================
-   3. TYPOGRAPHY SYSTEM
+   1.3 TYPOGRAPHY SYSTEM
    ========================================= */
 h1, h2, h3, h4, .orbitron {
     font-family: var(--font-heading);
