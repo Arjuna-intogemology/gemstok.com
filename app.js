@@ -23,10 +23,10 @@ function loadPart(id, file) {
         .catch(err => console.error(err));
 }
 
-/**
+/**---------------------------------------------------------------------
  * [MODULE: HEADER & NAVIGATION]
  * Logic for the sticky header transformation and scroll behavior.
- */
+ -----------------------------------------------------------------------*/
 function initNavigationSystem() {
     console.log("Navigation System: Active");
     
@@ -43,11 +43,11 @@ function initNavigationSystem() {
     });
 }
 
-/**
+/**--------------------------------------------------------
  * [MODULE: USER ACTIONS]
  * Logic for the Vault ID / User icon.
  * Global scope so HTML onclick can reach it.
- */
+ ---------------------------------------------------------*/
 window.handleUserClick = function() {
     const nav = document.querySelector('.gemstok-nav');
     
@@ -58,10 +58,10 @@ window.handleUserClick = function() {
     }
 };
 
-/**
+/**------------------------------------------------
  * [CORE: INITIALIZATION]
  * Wakes up the engine once the DOM is ready.
- */
+ -------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', () => {
     
     // Load all structural parts in parallel
