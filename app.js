@@ -64,6 +64,24 @@ window.handleUserClick = function() {
         window.location.href = 'signin.html';
     }
 };
+/**--------------------------------------------------------
+ * [MODULE: AUTHENTICATION ENGINE]
+ * Handles the "Gate" logic for signing in.
+ ---------------------------------------------------------*/
+document.addEventListener('submit', function (e) {
+    // Check if the element that was submitted has the ID 'login-form'
+    if (e.target && e.target.id === 'login-form') {
+        e.preventDefault();
+        
+        console.log("VAULT: Accessing encrypted session...");
+
+        // 1. Set the Mock Token (The Key)
+        localStorage.setItem('gemstok_token', 'MVP_SESSION_2026_ACTIVE');
+
+        // 2. Redirect immediately
+        window.location.href = 'profile.html';
+    }
+});
 
 /**------------------------------------------------
  * [CORE: INITIALIZATION]
@@ -102,18 +120,33 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Gemstok Engine: All Systems Online");
         initNavigationSystem(); 
         updateAuthUI(); // New: Refresh UI based on login status
+        hydrateProfile();
     });
 });
 
 /**------------------------------------------------
- * [MODULE: AUTH UI REFINEMENT]
+ * [MODULE: DATA HYDRATION]
+ * Fills the UI with real data if a token exists.
  -------------------------------------------------*/
-function updateAuthUI() {
+async function hydrateProfile() {
     const token = localStorage.getItem('gemstok_token');
-    const userBtn = document.querySelector('.nav-user-icon');
-    
-    if (token && userBtn) {
-        userBtn.style.color = 'var(--neon-blue)';
-        userBtn.style.filter = 'drop-shadow(0 0 5px var(--neon-blue))';
+    if (!token) return;
+
+    // TARGET: The profile fragment's name and rank
+    const nameDisplay = document.querySelector('.user-meta h2');
+    const rankDisplay = document.querySelector('.rank-tag');
+
+    if (nameDisplay) {
+        // MOCK DATA: Later, this will be: const data = await fetchUserData(token);
+        const userData = {
+            username: "TRADER_ALPHA_01",
+            rank: "GEM ENTREPRENEUR",
+            progress: "40%"
+        };
+
+        nameDisplay.innerText = userData.username;
+        rankDisplay.innerText = userData.rank;
+        
+        console.log("Vault Data Decrypted: User Identified.");
     }
 }
