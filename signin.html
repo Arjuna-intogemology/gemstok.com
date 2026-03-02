@@ -27,6 +27,17 @@
                 loadPart('footer-part', 'parts/footer.html')
             ]);
         });
+
+        document.querySelector('#login-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Fake authentication for MVP testing
+    console.log("Authorizing...");
+    localStorage.setItem('gemstok_token', 'mock_token_12345');
+    
+    // Redirect to the profile page
+    window.location.href = 'profile.html';
+});
     </script>
 </body>
 </html>

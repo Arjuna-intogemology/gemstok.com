@@ -78,5 +78,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // Activate specialized modules
         initNavigationSystem(); 
     });
+
     
 });
+
+// --- AUTHENTICATION GUARD ---
+function checkAuth() {
+    const token = localStorage.getItem('gemstok_token');
+    const currentPage = window.location.pathname;
+
+    // If no token and trying to access profile, redirect to signin
+    if (!token && currentPage.includes('profile.html')) {
+        window.location.href = 'signin.html';
+    }
+
+    // If already logged in and trying to access signin, redirect to profile
+    if (token && currentPage.includes('signin.html')) {
+        window.location.href = 'profile.html';
+    }
+}
+
+// Run the guard immediately
+checkAuth();
