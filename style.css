@@ -1,0 +1,65 @@
+/* =========================================
+   1. BRAND DNA (Global Variables)
+   ========================================= */
+:root {
+    /* Fonts */
+    --font-main: 'JetBrains Mono', monospace;
+    --font-heading: 'Orbitron', sans-serif;
+
+    /* Colors */
+    --bg-color: #050505;           /* Deep technical black */
+    --neon-blue: #00d9ff;          /* Primary Action Glow */
+    --text-main: #ffffff;
+    --text-dim: #888888;           /* Muted for descriptions */
+    
+    /* Transitions */
+    --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* =========================================
+   2. GLOBAL RESET (Mobile Precision)
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Prevents padding from breaking layout width */
+}
+
+html, body {
+    width: 100%;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-main); /* Defaults everything to JetBrains Mono */
+    line-height: 1.6;
+    
+    /* The Wobble Killers */
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* =========================================
+   3. TYPOGRAPHY SYSTEM
+   ========================================= */
+h1, h2, h3, h4, .orbitron {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+p, a, span, .mono {
+    font-family: var(--font-main);
+    font-weight: 300;
+}
+
+/* Global Section Title (The one you use for "Products" etc.) */
+.section-title {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin: 60px auto 20px auto;
+    color: var(--neon-blue);
+}
