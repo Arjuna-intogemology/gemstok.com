@@ -231,3 +231,139 @@ p, a, span, .hero-description, .btn-vault {
     box-shadow: 0 0 30px rgba(0, 217, 255, 0.4);
     transform: translateY(-3px);
 }
+
+/* =========================================
+   4. PRODUCT SLIDER (Infinite Track)
+   ========================================= */
+
+.vault-sections {
+    margin-top: -120px; /* Precision pull-up */
+    padding: 20px 0;
+}
+/* Tighten the gap for all section titles */
+.section-title {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 0.75rem;
+    letter-spacing: 5px;
+    margin: 30px auto 10px auto; /* Reduced from 60px/20px to 30px/10px */
+    color: var(--neon-blue);
+    opacity: 0.8;
+}
+
+.marquee-container {
+    overflow: hidden;
+    width: 100%;
+    padding: 5px 0 15px 0;
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.marquee-track {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: slideLeft 80s linear infinite;
+}
+
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes slideLeft {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); } /* Standard infinite loop math */
+}
+
+.product-box {
+    min-width: 260px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    padding: 15px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    backdrop-filter: blur(10px);
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.product-box:hover {
+    border-color: var(--neon-blue);
+    background: rgba(0, 217, 255, 0.05);
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.15);
+}
+
+.product-box h2 {
+    font-size: 0.85rem;
+    margin: 0 0 8px 0;
+    letter-spacing: 2px;
+}
+
+.status-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 9px;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    text-transform: uppercase;
+}
+
+.tag-launched {
+    color: var(--neon-blue);
+    border: 1px solid var(--neon-blue);
+}
+
+.know-more-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-dim);
+    font-size: 0.65rem;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.know-more-btn:hover {
+    border-color: var(--neon-blue);
+    color: var(--neon-blue);
+}
+
+.box-soon {
+    opacity: 0.4;
+    filter: grayscale(100%);
+    border-style: dashed;
+}
+
+/* ... [Previous Product Slider CSS] ... */
+
+.product-box:hover {
+    border-color: var(--neon-blue);
+    /* ... rest of your code ... */
+}
+
+/* =========================================
+    RESPONSIVE OVERRIDES (Mobile Fixes)
+   ========================================= */
+@media (max-width: 768px) {
+    .vault-sections {
+        margin-top: -60px; /* Less aggressive pull-up for mobile */
+    }
+    
+    .section-title {
+        margin: 20px auto 5px auto; /* Tighter gaps between rows */
+        font-size: 0.65rem; /* Slightly smaller text for mobile */
+    }
+
+    .hero-tagline {
+        font-size: 1.8rem; /* Prevents text from overlapping on small screens */
+    }
+}
