@@ -354,9 +354,10 @@ p, a, span, .hero-description, .btn-vault {
    ========================================= */
 #agency-part {
     height: auto !important;
-    min-height: 400px; /* Gives it a baseline floor */
+    min-height: 0 ; /* Gives it a baseline floor */
     display: block !important;
-    padding-bottom: 80px !important; /* Forces extra room at the very bottom */
+    padding-bottom: 0 !important; 
+    margin-bottom: 0 !important;
 }
 
 #agency-part-inner {
@@ -449,7 +450,10 @@ p, a, span, .hero-description, .btn-vault {
     background: #050505;
     position: relative;
     z-index: 5;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
 }
+
 
 .directory-container {
     max-width: 1200px;
