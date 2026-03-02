@@ -607,11 +607,29 @@ p, a, span, .hero-description, .btn-vault {
 /* =========================================
    9. CONTACT HUB (SMM & Trade Inquiries)
    ========================================= */
+.contact-section {
+    padding: 80px 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.contact-header h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    color: var(--text-main);
+    margin: 15px 0;
+    letter-spacing: 2px;
+}
+
 .contact-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
+    gap: 30px; /* Reduced from 60px for a tighter, more professional look */
 }
 
 .contact-card {
@@ -620,11 +638,35 @@ p, a, span, .hero-description, .btn-vault {
     padding: 40px;
     text-align: center;
     transition: var(--transition-smooth);
+    position: relative; /* Needed for the card-status positioning */
 }
 
 .contact-card:hover {
     border-color: var(--neon-blue);
     background: rgba(255, 255, 255, 0.04);
+    transform: translateY(-5px);
+}
+
+/* WhatsApp "Online" Indicator */
+.card-status {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    color: #00ff00;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.card-status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #00ff00;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00ff00;
 }
 
 .contact-card i {
@@ -640,23 +682,65 @@ p, a, span, .hero-description, .btn-vault {
     margin-bottom: 15px;
 }
 
-.contact-btn {
+/* Specific styling for the Zalo/WeChat/Line list */
+.regional-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+    text-align: left;
+    padding: 0 20px;
+}
+
+.regional-list span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+}
+
+.regional-list strong {
+    color: var(--neon-blue);
+}
+
+.small-note {
+    font-size: 0.6rem;
+    color: #444;
+    margin-top: 10px;
+}
+
+/* The Action Buttons */
+.contact-link {
     display: inline-block;
     margin-top: 20px;
-    padding: 10px 25px;
+    padding: 12px 30px;
     border: 1px solid var(--neon-blue);
     color: var(--neon-blue);
     text-decoration: none;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
+    letter-spacing: 1px;
     transition: 0.3s;
 }
 
-.contact-btn:hover {
+.contact-link:hover {
     background: var(--neon-blue);
     color: #000;
-}   
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+}
 
+.smm-presence {
+    margin-top: 80px;
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.smm-presence p {
+    font-size: 0.65rem;
+    color: #444;
+    letter-spacing: 2px;
+    font-family: 'Orbitron', sans-serif;
+}
 /* =========================================
     RESPONSIVE OVERRIDES (Mobile Fixes)
    ========================================= */
