@@ -46,6 +46,22 @@ document.addEventListener('DOMContentLoaded', () => {
         // This is where we will initialize specific logic for 
         // the Agency or Hero sections once they are built.
     });
+
+    function initNavigationSystem() {
+    console.log("Navigation System: Active"); // Confirm system is awake
+    
+    window.addEventListener('scroll', () => {
+        const nav = document.querySelector('.gemstok-nav');
+        if (nav) {
+            if (window.scrollY > 50) {
+                console.log("State: Scrolled"); // See this in F12 console
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        }
+    });
+}
     /* ------------------------------------------------------------------------------
                 [HEADER part ]  SYSTEM: NAVIGATION & INTERACTION
    ------------------------------------------------------------------------------ */
