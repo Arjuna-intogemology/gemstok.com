@@ -66,12 +66,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Load all structural parts in parallel
     Promise.all([
-        loadPart('header-part', 'header.html'),
-        loadPart('hero-part', 'hero.html'),
-        loadPart('products-part', 'products.html'),
-        loadPart('agency-part', 'agency.html'),
-        loadPart('directory-part', 'directory.html'),
-        loadPart('footer-part', 'footer.html')
+        loadPart('header-part', 'parts/header.html'),
+        loadPart('hero-part', 'parts/hero.html'),
+        loadPart('products-part', 'parts/products.html'),
+        loadPart('agency-part', 'parts/agency.html'),
+        loadPart('directory-part', 'parts/directory.html'),
+        loadPart('footer-part', 'parts/footer.html')
     ]).then(() => {
         console.log("Gemstok Engine: All Systems Online");
         
