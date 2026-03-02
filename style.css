@@ -782,6 +782,101 @@ p, a, span, .hero-description, .btn-vault {
 }
 
 /* =========================================
+   11. AUTHENTICATION GATE
+   ========================================= */
+.auth-wrapper {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.auth-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 50px 40px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.auth-header i {
+    font-size: 3rem;
+    color: var(--neon-blue);
+    margin-bottom: 20px;
+}
+
+.auth-header h2 {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--neon-blue);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.input-group input {
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 12px;
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 15px;
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.auth-btn:hover {
+    background: var(--neon-blue);
+    color: #000;
+}
+
+.auth-footer {
+    margin-top: 30px;
+    font-size: 0.65rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-dim);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.auth-footer a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* =========================================
     RESPONSIVE OVERRIDES (Mobile Fixes)
    ========================================= */
 @media (max-width: 768px) {
