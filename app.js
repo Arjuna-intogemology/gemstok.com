@@ -1,14 +1,12 @@
 /**
  * ==============================================================================
  * GEMSTOK CORE ENGINE
- * Modular Loader & Initialization
  * ==============================================================================
  */
 
 /**
- * loadPart
- * Fetches an HTML file and injects it into a specific ID.
- * This is what makes Gemstok.com modular.
+ * [MODULE: COMPONENT LOADER]
+ * Fetches HTML fragments and injects them into index.html slots.
  */
 function loadPart(id, file) {
     return fetch(file)
@@ -26,46 +24,12 @@ function loadPart(id, file) {
 }
 
 /**
- * INITIALIZATION
- * Runs when the browser is ready.
- * Loads parts in order to ensure the brand loads correctly for SMM traffic.
+ * [MODULE: HEADER & NAVIGATION]
+ * Logic for the sticky header transformation and scroll behavior.
  */
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // We load the structural parts first
-    Promise.all([
-        loadPart('header-part', 'header.html'),
-        loadPart('hero-part', 'hero.html'),
-        loadPart('products-part', 'products.html'),
-        loadPart('agency-part', 'agency.html'),
-        loadPart('directory-part', 'directory.html'),
-        loadPart('footer-part', 'footer.html')
-    ]).then(() => {
-        console.log("Gemstok Engine: All Systems Online");
-        
-        // This is where we will initialize specific logic for 
-        // the Agency or Hero sections once they are built.
-    });
-
-    function initNavigationSystem() {
-    console.log("Navigation System: Active"); // Confirm system is awake
-    
-    window.addEventListener('scroll', () => {
-        const nav = document.querySelector('.gemstok-nav');
-        if (nav) {
-            if (window.scrollY > 50) {
-                console.log("State: Scrolled"); // See this in F12 console
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        }
-    });
-}
-    /* ------------------------------------------------------------------------------
-                [HEADER part ]  SYSTEM: NAVIGATION & INTERACTION
-   ------------------------------------------------------------------------------ */
 function initNavigationSystem() {
+    console.log("Navigation System: Active");
+    
     window.addEventListener('scroll', () => {
         const nav = document.querySelector('.gemstok-nav');
         if (nav) {
@@ -80,17 +44,38 @@ function initNavigationSystem() {
 }
 
 /**
- * handleUserClick
- * Logic for the User Icon: If scrolled, return to top. If at top, open Signup.
+ * [MODULE: USER ACTIONS]
+ * Logic for the Vault ID / User icon.
+ * Global scope so HTML onclick can reach it.
  */
-function handleUserClick() {
+window.handleUserClick = function() {
     const nav = document.querySelector('.gemstok-nav');
     
     if (nav && nav.classList.contains('scrolled')) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-        // This is where your Vault ID / trade-inGEM logic will eventually go
         alert("Vault Initialization Protocol Starting...");
     }
-}
+};
+
+/**
+ * [CORE: INITIALIZATION]
+ * Wakes up the engine once the DOM is ready.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // Load all structural parts in parallel
+    Promise.all([
+        loadPart('header-part', 'header.html'),
+        loadPart('hero-part', 'hero.html'),
+        loadPart('products-part', 'products.html'),
+        loadPart('agency-part', 'agency.html'),
+        loadPart('directory-part', 'directory.html'),
+        loadPart('footer-part', 'footer.html')
+    ]).then(() => {
+        console.log("Gemstok Engine: All Systems Online");
+        
+        // Activate specialized modules
+        initNavigationSystem(); 
+    });
 });
