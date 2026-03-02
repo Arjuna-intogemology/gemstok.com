@@ -544,6 +544,65 @@ p, a, span, .hero-description, .btn-vault {
         opacity: 1;
     }
 }
+/* =========================================
+   8. FOOTER (The Minimalist Stamp)
+   ========================================= */
+#footer-part {
+    margin-top: 0; /* Snaps to the bottom of Directory */
+    padding: 40px 25px; 
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: #050505;
+}
+
+.gemstok-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gemstok-footer p {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    color: #444; /* Muted grey for a subtle look */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.footer-links {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-links a {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    transition: var(--transition-smooth);
+    opacity: 0.5;
+}
+
+.footer-links a:hover {
+    color: var(--text-main);
+    opacity: 1;
+}
+
+.authority-link {
+    color: var(--neon-blue) !important;
+    opacity: 0.8 !important;
+}
+
+/* Mobile Alignment */
+@media (max-width: 768px) {
+    .gemstok-footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}
 
 /* =========================================
     RESPONSIVE OVERRIDES (Mobile Fixes)
