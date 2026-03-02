@@ -741,6 +741,46 @@ p, a, span, .hero-description, .btn-vault {
     letter-spacing: 2px;
     font-family: 'Orbitron', sans-serif;
 }
+
+/* =========================================
+   10. LEGAL FRAMEWORK STYLING
+   ========================================= */
+.legal-container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.legal-block {
+    margin-bottom: 50px;
+    border-left: 2px solid rgba(255, 255, 255, 0.05);
+    padding-left: 30px;
+    transition: var(--transition-smooth);
+}
+
+.legal-block:hover {
+    border-left-color: var(--neon-blue);
+}
+
+.legal-block h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    color: var(--neon-blue);
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.legal-block p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.8;
+    color: var(--text-dim);
+}
+
+.legal-block strong {
+    color: var(--text-main);
+}
+
 /* =========================================
     RESPONSIVE OVERRIDES (Mobile Fixes)
    ========================================= */
