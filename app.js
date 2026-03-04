@@ -1,3 +1,6 @@
+// This is the "Telephone Line" to your Vault
+const VAULT_URL = "http://gemstok-vault.local/wp-json";
+
 /**
  * ==============================================================================
  * GEMSTOK CORE ENGINE
