@@ -1,28 +1,28 @@
-<section class="auth-container">
-    <div class="auth-box">
-        <div class="auth-header">
-            <i class='bx bx-shield-quarter'></i>
-            <h2>GEMSTOK ID</h2>
-            <p>Enter your credentials to access the <strong>GEM TRADER</strong> ecosystem.</p>
-        </div>
-
-        <form id="login-form">
-            <div class="input-group">
-                <label>IDENTIFIER</label>
-                <input type="text" placeholder="Email or Username" required>
-            </div>
-            
-            <div class="input-group">
-                <label>ACCESS KEY</label>
-                <input type="password" placeholder="••••••••" required>
-            </div>
-
-            <button type="submit" class="auth-btn">AUTHORIZE ACCESS</button>
-        </form>
-
-        <div class="auth-footer">
-            <a href="#">Forgot Access Key?</a>
-            <span>No account? <a href="#">Register GEMSTOK ID</a></span>
-        </div>
+<div class="auth-box">
+    <div class="auth-header">
+        <i class='bx bx-shield-quarter'></i>
+        <h2>GEMSTOK ID</h2>
+        <p>Enter your credentials to access the <strong>GEM TRADER</strong> ecosystem.</p>
     </div>
-</section>
+
+    <form id="login-form">
+        <div class="input-group">
+            <label>IDENTIFIER</label>
+            <input type="text" name="username" placeholder="Email or Username" required>
+        </div>
+        
+        <div class="input-group">
+            <label>ACCESS KEY</label>
+            <input type="password" name="password" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="auth-btn">AUTHORIZE ACCESS</button>
+        
+        <button type="button" class="cancel-btn" onclick="closeAuthModal()">CANCEL</button>
+    </form>
+
+    <div class="auth-footer">
+        <a href="#">Forgot Access Key?</a>
+        <span>No account? <a href="#">Register GEMSTOK ID</a></span>
+    </div>
+</div>
