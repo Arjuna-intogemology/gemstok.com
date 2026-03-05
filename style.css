@@ -960,6 +960,51 @@ p, a, span, .hero-description, .btn-vault {
     font-family: 'Orbitron', sans-serif;
 }
 
+/*==========================================
+authmodal
+============================================ */
+/* The Blackout Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9); /* Deep dark for focus */
+    backdrop-filter: blur(10px); /* Blurs the Hero/Content behind */
+    display: none; /* Controlled by JS */
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* Higher than Nav and Hero */
+}
+
+/* The Popup Box */
+.modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+    animation: fadeInGate 0.3s ease-out;
+}
+
+/* Close Button Styling */
+.close-btn {
+    position: absolute;
+    top: -40px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--neon-blue);
+    font-size: 2.5rem;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+@keyframes fadeInGate {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* =========================================
     RESPONSIVE OVERRIDES (Mobile Fixes)
    ========================================= */
