@@ -25,6 +25,8 @@ function loadPart(id, file) {
         })
         .catch(err => console.error(err));
 }
+// This ensures the Login Gate is always loaded in the background
+loadPart('auth-modal', 'fragments/signin-fragment.html');
 
 /**---------------------------------------------------------------------
  * [MODULE 2: Scroll & NAVIGATION]
@@ -153,3 +155,14 @@ async function hydrateProfile() {
         console.log("Vault Data Decrypted: User Identified.");
     }
 }
+
+/**----------------------------------------------------------------
+ * [Module 7 : SITE EXECUTION]
+ * Running the engines defined in the modules above.
+ ------------------------------------------------------------------*/
+
+// Always load the Gate
+loadPart('auth-modal', 'fragments/signin-fragment.html');
+
+// Load other fragments...
+loadPart('nav-placeholder', 'fragments/nav.html');
