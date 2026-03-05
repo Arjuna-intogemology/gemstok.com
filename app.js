@@ -59,16 +59,23 @@ window.handleUserClick = function() {
     // PRIORITY 1: If nav is scrolled, smooth scroll to top first
     if (nav && nav.classList.contains('scrolled')) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        return; // Exit after scroll
+        return; 
     } 
 
-    // PRIORITY 2: If at top, handle the Auth redirection
+    // PRIORITY 2: Open Modal instead of Redirecting
     if (token) {
+        // If logged in, go to profile
         window.location.href = 'profile.html';
     } else {
-        window.location.href = 'signin.html';
+        // Instead of 'signin.html', we wake up the overlay
+        const overlay = document.querySelector('.modal-overlay');
+        if (overlay) {
+            overlay.classList.add('active');
+            console.log("Vault Gate: Modal Activated.");
+        }
     }
 };
+
 /**--------------------------------------------------------
  * [MODULE 4: AUTHENTICATION ENGINE]
  * Handles the "Gate" logic for signing in.
