@@ -173,3 +173,12 @@ loadPart('auth-modal', 'fragments/signin-fragment.html');
 
 // Load other fragments...
 loadPart('nav-placeholder', 'fragments/nav.html');
+
+// logic for closing the vault
+window.closeAuthModal = function() {
+    const overlay = document.querySelector('.modal-overlay');
+    if (overlay) {
+        overlay.classList.remove('active');
+        console.log("Vault Gate: Secured/Closed.");
+    }
+};
