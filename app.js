@@ -7,10 +7,10 @@ const VAULT_URL = "http://gemstok-vault.local/wp-json";
  * ==============================================================================
  */
 
-/**
- * [MODULE: COMPONENT LOADER]
+/**----------------------------------------------------------------
+ * [MODULE 1: COMPONENT LOADER]
  * Fetches HTML fragments and injects them into index.html slots.
- */
+ ------------------------------------------------------------------*/
 function loadPart(id, file) {
     return fetch(file)
         .then(response => {
@@ -27,7 +27,7 @@ function loadPart(id, file) {
 }
 
 /**---------------------------------------------------------------------
- * [MODULE: HEADER & NAVIGATION]
+ * [MODULE 2: Scroll & NAVIGATION]
  * Logic for the sticky header transformation and scroll behavior.
  -----------------------------------------------------------------------*/
 function initNavigationSystem() {
@@ -47,7 +47,7 @@ function initNavigationSystem() {
 }
 
 /**--------------------------------------------------------
- * [MODULE: USER ACTIONS]
+ * [MODULE 3: USER-icon ACTIONS]
  * Logic for the Vault ID / User icon.
  ---------------------------------------------------------*/
 window.handleUserClick = function() {
@@ -68,7 +68,7 @@ window.handleUserClick = function() {
     }
 };
 /**--------------------------------------------------------
- * [MODULE: AUTHENTICATION ENGINE]
+ * [MODULE 4: AUTHENTICATION ENGINE]
  * Handles the "Gate" logic for signing in.
  ---------------------------------------------------------*/
 document.addEventListener('submit', function (e) {
@@ -87,7 +87,7 @@ document.addEventListener('submit', function (e) {
 });
 
 /**------------------------------------------------
- * [CORE: INITIALIZATION]
+ * [Module 5 : CORE: INITIALIZATION]
  -------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**------------------------------------------------
- * [MODULE: DATA HYDRATION]
+ * [MODULE 6: DATA HYDRATION]
  * Fills the UI with real data if a token exists.
  -------------------------------------------------*/
 async function hydrateProfile() {
