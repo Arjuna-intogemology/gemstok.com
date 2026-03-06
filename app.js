@@ -177,10 +177,8 @@ async function hydrateProfile() {
  ------------------------------------------------------------------*/
 
 // Always load the Gate
-loadPart('auth-modal', 'fragments/signin-fragment.html');
+loadPart('auth-modal', 'parts/signin-fragment.html');
 
-// Load other fragments...
-loadPart('nav-placeholder', 'fragments/nav.html');
 
 // logic for closing the vault
 window.closeAuthModal = function() {
