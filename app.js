@@ -197,3 +197,35 @@ const waitForGate = setInterval(() => {
             });
     }
 }, 100); // Checks every 100ms
+
+/**--------------------------------------------------------
+ * [MODULE 8: LOGOUT & UI TOGGLE]
+ * Handles session termination and button visibility.
+ ---------------------------------------------------------*/
+function updateAuthUI() {
+    const token = localStorage.getItem('gemstok_token');
+    const loginBtn = document.getElementById('login-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    if (loginBtn && logoutBtn) {
+        if (token) {
+            loginBtn.style.display = 'none';
+            logoutBtn.style.display = 'block';
+        } else {
+            loginBtn.style.display = 'block';
+            logoutBtn.style.display = 'none';
+        }
+    }
+}
+
+window.handleLogout = function() {
+    console.log("Vault Session: Terminating...");
+    // 1. Remove the token
+    localStorage.removeItem('gemstok_token');
+    
+    // 2. Update UI
+    updateAuthUI();
+    
+    // 3. Redirect to home (optional, but recommended for security)
+    window.location.href = 'index.html';
+};
