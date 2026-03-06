@@ -208,8 +208,7 @@ const waitForGate = setInterval(() => {
 }, 100); // Checks every 100ms
 
 /**--------------------------------------------------------
- * [MODULE 8: LOGOUT & UI TOGGLE]
- * Handles session termination and button visibility.
+ * [MODULE 8: LOGOUT & UI TOGGLE - FORCED VISIBILITY]
  ---------------------------------------------------------*/
 function updateAuthUI() {
     const token = localStorage.getItem('gemstok_token');
@@ -218,12 +217,18 @@ function updateAuthUI() {
 
     if (loginBtn && logoutBtn) {
         if (token) {
-            loginBtn.style.display = 'none';
-            logoutBtn.style.display = 'block';
+            // Force Logout button to be visible and Login to be gone
+            loginBtn.setAttribute('style', 'display: none !important');
+            logoutBtn.setAttribute('style', 'display: flex !important');
+            console.log("Auth UI: Token found. Logout button forced to visible.");
         } else {
-            loginBtn.style.display = 'block';
-            logoutBtn.style.display = 'none';
+            // Force Login button to be visible and Logout to be gone
+            loginBtn.setAttribute('style', 'display: flex !important');
+            logoutBtn.setAttribute('style', 'display: none !important');
+            console.log("Auth UI: No token. Login button forced to visible.");
         }
+    } else {
+        console.error("Auth UI: Buttons not found in the DOM.");
     }
 }
 

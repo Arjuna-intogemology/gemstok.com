@@ -123,18 +123,26 @@ p, a, span, .hero-description, .btn-vault {
     filter: drop-shadow(0 0 8px var(--neon-blue));
 }
 
-.nav-user-icon {
+/* Base style for both Auth Buttons */
+.nav-user-icon, #logout-btn {
     background: transparent;
     border: 1px solid rgba(0, 217, 255, 0.3);
     color: var(--neon-blue);
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    display: flex;
+    display: flex; /* JavaScript will override this with display: none where needed */
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: var(--transition-smooth);
+}
+
+/* Specific hover for Logout to make it feel like a 'Terminate' action */
+#logout-btn:hover {
+    border-color: #ff4b2b;
+    color: #ff4b2b;
+    filter: drop-shadow(0 0 8px #ff4b2b);
 }
 
 /* Scrolled State Logic */
@@ -151,7 +159,9 @@ p, a, span, .hero-description, .btn-vault {
     visibility: hidden;
 }
 
-.gemstok-nav.scrolled .nav-user-icon {
+/* Pins whichever button is currently 'active' to the top right on scroll */
+.gemstok-nav.scrolled .nav-user-icon,
+.gemstok-nav.scrolled #logout-btn {
     pointer-events: auto;
     position: fixed;
     top: 15px;
@@ -159,7 +169,6 @@ p, a, span, .hero-description, .btn-vault {
     background: rgba(5, 5, 5, 0.8);
     backdrop-filter: blur(10px);
 }
-
 /* =========================================
    3. HERO SECTION - RESTORED ORIGINAL
    ========================================= */
