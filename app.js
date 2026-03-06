@@ -26,7 +26,7 @@ function loadPart(id, file) {
         .catch(err => console.error(err));
 }
 // This ensures the Login Gate is always loaded in the background
-loadPart('auth-modal', 'fragments/signin-fragment.html');
+loadPart('signin-part', 'parts/signin-fragment.html');
 
 /**---------------------------------------------------------------------
  * [MODULE 2: Scroll & NAVIGATION]
@@ -169,14 +169,9 @@ async function hydrateProfile() {
 
 /**----------------------------------------------------------------
  * [Module 7 : SITE EXECUTION]
- * Running the engines defined in the modules above.
  ------------------------------------------------------------------*/
 
-// Always load the Gate
-loadPart('auth-modal', 'parts/signin-fragment.html');
-
-
-// logic for closing the vault
+// 1. Close Logic (Keeping it clean)
 window.closeAuthModal = function() {
     const overlay = document.querySelector('.modal-overlay');
     if (overlay) {
@@ -184,3 +179,21 @@ window.closeAuthModal = function() {
         console.log("Vault Gate: Secured/Closed.");
     }
 };
+
+// 2. Smart Loading Logic
+// We wait until the 'signin-part' div actually exists in the DOM
+const waitForGate = setInterval(() => {
+    const gateTarget = document.getElementById('signin-part');
+    
+    if (gateTarget) {
+        loadPart('signin-part', 'parts/signin-fragment.html')
+            .then(() => {
+                console.log("Vault Gate: Content Injected.");
+                clearInterval(waitForGate); // Stop looking once loaded
+            })
+            .catch(err => {
+                console.error("Vault Gate Load Error:", err);
+                clearInterval(waitForGate);
+            });
+    }
+}, 100); // Checks every 100ms
