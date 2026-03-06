@@ -81,7 +81,6 @@ window.handleUserClick = function() {
  * Handles the "Gate" logic for signing in.
  ---------------------------------------------------------*/
 document.addEventListener('submit', function (e) {
-    // Check if the element that was submitted has the ID 'login-form'
     if (e.target && e.target.id === 'login-form') {
         e.preventDefault();
         
@@ -90,16 +89,22 @@ document.addEventListener('submit', function (e) {
         // 1. Set the Mock Token (The Key)
         localStorage.setItem('gemstok_token', 'MVP_SESSION_2026_ACTIVE');
 
-        // 2. MODAL FLOW: Close the gate instead of redirecting
+        // 2. UI UPDATE: Trigger toggle immediately while header is present
+        if (typeof updateAuthUI === 'function') {
+            updateAuthUI(); 
+        }
+
+        // 3. DATA HYDRATION: Fill profile data if needed
+        if (typeof hydrateProfile === 'function') {
+            hydrateProfile();
+        }
+
+        // 4. MODAL FLOW: Close the gate last
         if (window.closeAuthModal) {
             window.closeAuthModal();
         }
-
-        // 3. UI UPDATE: Refresh the site elements to show you are logged in
-        updateAuthUI(); 
-        hydrateProfile();
         
-        console.log("Vault Access Granted. Modal Closed.");
+        console.log("Vault Access Granted. UI Synced.");
     }
 });
 
@@ -110,11 +115,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const path = window.location.pathname;
 
     let partsToLoad = [
-        loadPart('header-part', 'parts/header.html'),
+        loadPart('header-part', 'parts/header.html').then(() => {
+            // This is the primary trigger for the header buttons
+            if (typeof updateAuthUI === 'function') updateAuthUI();
+        }),
         loadPart('footer-part', 'parts/footer.html')
     ];
 
-    // Page-Specific Loading (SAFE: only handles standalone pages)
     if (path.includes('profile.html')) {
         partsToLoad.push(loadPart('profile-part', 'parts/profile-fragment.html'));
     } else if (path.includes('contact.html')) {
@@ -122,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (path.includes('legal.html')) {
         partsToLoad.push(loadPart('legal-part', 'parts/legal-fragment.html'));
     } else {
-        // Default: Home parts
         partsToLoad.push(
             loadPart('hero-part', 'parts/hero.html'),
             loadPart('products-part', 'parts/products.html'),
@@ -135,10 +141,10 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Gemstok Engine: All Systems Online");
         initNavigationSystem(); 
         
-       // Use a single timeout to trigger UI updates once fragments are ready
         setTimeout(() => {
-            if (typeof updateAuthUI === 'function') updateAuthUI();
-            if (typeof hydrateProfile === 'function') hydrateProfile();}, 50);
+            // Only hydrateProfile needs to wait for the rest of the page now
+            if (typeof hydrateProfile === 'function') hydrateProfile();
+        }, 50);
     });
 });
 
