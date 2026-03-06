@@ -90,8 +90,16 @@ document.addEventListener('submit', function (e) {
         // 1. Set the Mock Token (The Key)
         localStorage.setItem('gemstok_token', 'MVP_SESSION_2026_ACTIVE');
 
-        // 2. Redirect immediately
-        window.location.href = 'profile.html';
+        // 2. MODAL FLOW: Close the gate instead of redirecting
+        if (window.closeAuthModal) {
+            window.closeAuthModal();
+        }
+
+        // 3. UI UPDATE: Refresh the site elements to show you are logged in
+        updateAuthUI(); 
+        hydrateProfile();
+        
+        console.log("Vault Access Granted. Modal Closed.");
     }
 });
 
