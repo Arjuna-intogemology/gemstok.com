@@ -134,8 +134,11 @@ document.addEventListener('DOMContentLoaded', () => {
     Promise.all(partsToLoad).then(() => {
         console.log("Gemstok Engine: All Systems Online");
         initNavigationSystem(); 
-        if (typeof updateAuthUI === 'function') updateAuthUI();
-        if (typeof hydrateProfile === 'function') hydrateProfile();
+        
+       // Use a single timeout to trigger UI updates once fragments are ready
+        setTimeout(() => {
+            if (typeof updateAuthUI === 'function') updateAuthUI();
+            if (typeof hydrateProfile === 'function') hydrateProfile();}, 50);
     });
 });
 
