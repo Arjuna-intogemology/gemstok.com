@@ -116,22 +116,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let partsToLoad = [
         loadPart('header-part', 'parts/header.html').then(() => {
-            // This is the primary trigger for the header buttons
+            // Primary trigger for header UI states
             if (typeof updateAuthUI === 'function') updateAuthUI();
         }),
         loadPart('footer-part', 'parts/footer.html')
     ];
 
-   if (path.includes('profile.html')) {
+    if (path.includes('profile.html')) {
         partsToLoad.push(loadPart('profile-part', 'parts/profile-fragment.html'));
     } else if (path.includes('contact.html')) {
-        // We move the log here so you can delete the script from contact.html
         partsToLoad.push(loadPart('contact-part', 'parts/contact-fragment.html').then(() => {
             console.log("Contact Page Fully Assembled");
         }));
     } else if (path.includes('legal.html')) {
         partsToLoad.push(loadPart('legal-part', 'parts/legal-fragment.html'));
+    } else if (path.includes('register.html')) {
+        // This targets the ID in your register.html shell
+        partsToLoad.push(loadPart('register-part', 'parts/register-fragment.html').then(() => {
+            console.log("Registration Page Fully Assembled");
+        }));
     } else {
+        // DEFAULT: Load Homepage Fragments
         partsToLoad.push(
             loadPart('hero-part', 'parts/hero.html'),
             loadPart('products-part', 'parts/products.html'),
@@ -145,7 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initNavigationSystem(); 
         
         setTimeout(() => {
-            // Only hydrateProfile needs to wait for the rest of the page now
             if (typeof hydrateProfile === 'function') hydrateProfile();
         }, 50);
     });
