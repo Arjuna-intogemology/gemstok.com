@@ -19,16 +19,6 @@
     <div id="footer-part"></div>
 
     <script src="app.js"></script>
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            Promise.all([
-                loadPart('header-part', 'parts/header.html'),
-                loadPart('legal-part', 'parts/legal-fragment.html'),
-                loadPart('footer-part', 'parts/footer.html')
-            ]).then(() => {
-                console.log("Legal Page Shell Loaded");
-            });
-        });
-    </script>
+    
 </body>
 </html>

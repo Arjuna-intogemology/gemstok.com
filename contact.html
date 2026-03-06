@@ -19,17 +19,6 @@
     <div id="footer-part"></div>
 
     <script src="app.js"></script>
-    <script>
-        // Load the parts specific to this page
-        window.addEventListener('DOMContentLoaded', () => {
-            Promise.all([
-                loadPart('header-part', 'parts/header.html'),
-                loadPart('contact-part', 'parts/contact-fragment.html'),
-                loadPart('footer-part', 'parts/footer.html')
-            ]).then(() => {
-                console.log("Contact Page Fully Assembled");
-            });
-        });
-    </script>
+    
 </body>
 </html>

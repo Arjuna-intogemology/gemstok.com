@@ -122,10 +122,13 @@ document.addEventListener('DOMContentLoaded', () => {
         loadPart('footer-part', 'parts/footer.html')
     ];
 
-    if (path.includes('profile.html')) {
+   if (path.includes('profile.html')) {
         partsToLoad.push(loadPart('profile-part', 'parts/profile-fragment.html'));
     } else if (path.includes('contact.html')) {
-        partsToLoad.push(loadPart('contact-part', 'parts/contact-fragment.html'));
+        // We move the log here so you can delete the script from contact.html
+        partsToLoad.push(loadPart('contact-part', 'parts/contact-fragment.html').then(() => {
+            console.log("Contact Page Fully Assembled");
+        }));
     } else if (path.includes('legal.html')) {
         partsToLoad.push(loadPart('legal-part', 'parts/legal-fragment.html'));
     } else {
