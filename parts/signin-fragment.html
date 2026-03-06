@@ -1,10 +1,8 @@
 <div class="auth-box">
-    <div class="auth-header">
-        <i class='bx bx-shield-quarter'></i>
-        <h2>GEMSTOK ID</h2>
-        <p>Enter your credentials to access the <strong>GEM TRADER</strong> ecosystem.</p>
-    </div>
-
+   <button type="button" class="close-gate" onclick="closeAuthModal()">
+    <span class="close-icon"><i class='bx bx-x'></i></span>
+    <span class="close-text">CANCEL</span>
+   </button>
     <form id="login-form">
         <div class="input-group">
             <label>IDENTIFIER</label>
@@ -13,16 +11,93 @@
         
         <div class="input-group">
             <label>ACCESS KEY</label>
-            <input type="password" name="password" placeholder="••••••••" required>
+            <input type="password" name="password" placeholder="Password" required>
         </div>
 
         <button type="submit" class="auth-btn">AUTHORIZE ACCESS</button>
         
-        <button type="button" class="cancel-btn" onclick="closeAuthModal()">CANCEL</button>
     </form>
 
+    <div class="social-auth">
+        <button type="button" class="social-btn google-btn">
+            <i class='bx bxl-google'></i>
+        </button>
+        <button type="button" class="social-btn reddit-btn">
+            <i class='bx bxl-reddit'></i>
+        </button>
+    </div>
+ 
     <div class="auth-footer">
         <a href="#">Forgot Access Key?</a>
         <span>No account? <a href="#">Register GEMSTOK ID</a></span>
     </div>
+
+
+    
+</div>
+
+<div class="modal-overlay" id="auth-modal">
+
+    <div class="auth-box" id="signin-fragment">
+        <button type="button" class="close-gate" onclick="closeAuthModal()">
+            <span class="close-icon"><i class='bx bx-x'></i></span>
+            <span class="close-text">CANCEL</span>
+        </button>
+        
+        <form id="login-form">
+            <div class="input-group">
+                <label>IDENTIFIER</label>
+                <input type="text" name="username" placeholder="Email or Username" required>
+            </div>
+            
+            <div class="input-group">
+                <label>ACCESS KEY</label>
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+
+            <button type="submit" class="auth-btn">AUTHORIZE ACCESS</button>
+        </form>
+
+        <div class="social-auth">
+            <button type="button" class="social-btn google-btn">
+                <i class='bx bxl-google'></i>
+            </button>
+            <button type="button" class="social-btn reddit-btn">
+                <i class='bx bxl-reddit'></i>
+            </button>
+        </div>
+
+        <div class="auth-footer">
+            <a href="#">Forgot Access Key?</a>
+            <span>No account? <a href="javascript:void(0)" onclick="toggleAuth('register')">Register GEMSTOK ID</a></span>
+        </div>
+    </div>
+
+    <div class="auth-box" id="register-fragment" style="display: none;">
+        <button type="button" class="close-gate" onclick="closeAuthModal()">
+            <span class="close-icon"><i class='bx bx-x'></i></span>
+            <span class="close-text">CANCEL</span>
+        </button>
+
+        <form id="register-form">
+            <div class="input-group">
+                <label>CHOOSE IDENTIFIER</label>
+                <input type="text" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <label>COMMUNICATION LINK</label>
+                <input type="email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group">
+                <label>GENERATE ACCESS KEY</label>
+                <input type="password" placeholder="Create Password" required>
+            </div>
+            <button type="submit" class="auth-btn">INITIALIZE ACCOUNT</button>
+        </form>
+
+        <div class="auth-footer">
+            <span>Already have an ID? <a href="javascript:void(0)" onclick="toggleAuth('signin')">Authorize Access</a></span>
+        </div>
+    </div>
+
 </div>
