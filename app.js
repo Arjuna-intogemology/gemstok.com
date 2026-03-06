@@ -107,8 +107,6 @@ document.addEventListener('submit', function (e) {
  * [Module 5 : CORE: INITIALIZATION]
  -------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Identify which page we are on to load correct fragments
     const path = window.location.pathname;
 
     let partsToLoad = [
@@ -116,17 +114,15 @@ document.addEventListener('DOMContentLoaded', () => {
         loadPart('footer-part', 'parts/footer.html')
     ];
 
-    // 2. Page-Specific Loading Logic
-    if (path.includes('signin.html')) {
-        partsToLoad.push(loadPart('signin-part', 'parts/signin-fragment.html'));
-    } else if (path.includes('profile.html')) {
+    // Page-Specific Loading (SAFE: only handles standalone pages)
+    if (path.includes('profile.html')) {
         partsToLoad.push(loadPart('profile-part', 'parts/profile-fragment.html'));
     } else if (path.includes('contact.html')) {
         partsToLoad.push(loadPart('contact-part', 'parts/contact-fragment.html'));
     } else if (path.includes('legal.html')) {
         partsToLoad.push(loadPart('legal-part', 'parts/legal-fragment.html'));
     } else {
-        // Default: Index/Home parts
+        // Default: Home parts
         partsToLoad.push(
             loadPart('hero-part', 'parts/hero.html'),
             loadPart('products-part', 'parts/products.html'),
@@ -135,14 +131,14 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
-    // 3. Fire Engine
     Promise.all(partsToLoad).then(() => {
         console.log("Gemstok Engine: All Systems Online");
         initNavigationSystem(); 
-        updateAuthUI(); // New: Refresh UI based on login status
-        hydrateProfile();
+        if (typeof updateAuthUI === 'function') updateAuthUI();
+        if (typeof hydrateProfile === 'function') hydrateProfile();
     });
 });
+
 
 /**------------------------------------------------
  * [MODULE 6: DATA HYDRATION]
