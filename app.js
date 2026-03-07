@@ -118,6 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
         loadPart('header-part', 'parts/header.html').then(() => {
             // Primary trigger for header UI states
             if (typeof updateAuthUI === 'function') updateAuthUI();
+            // Boot GemTrace background
+            const s = document.createElement('script');
+            s.src = 'parts/gemtrace-bg.js';
+            document.body.appendChild(s);
         }),
         loadPart('footer-part', 'parts/footer.html')
     ];
