@@ -139,6 +139,7 @@ function buildMapPaths() {
     const polys = geom.type === 'Polygon' ? [geom.coordinates] : geom.coordinates;
     for (const poly of polys) {
       for (const ring of poly) {
+        if (ring.length < 4) continue; // skip degenerate rings (equator/antimeridian artifacts)
         let first = true;
         for (const [lon, lat] of ring) {
           const [px, py] = project(lon, lat);
@@ -486,6 +487,12 @@ function frame(now) {
   routes=routes.filter(r=>{
     r.st+=dt; let keep=true;
 
+    // icon/gem floats 32px ABOVE the destination dot
+    // label sits 12px BELOW the destination dot
+    const ix = r.dx;
+    const iy = r.dy - 32;
+    const ly = r.dy + 12;
+
     if (r.stage==='spawn') {
       r.roughA=clamp(r.st/400,0,1); r.labelOrigA=clamp(r.st/400,0,1);
       drawRoughGem(r.ox,r.oy,r.roughA*.85);
@@ -505,7 +512,7 @@ function frame(now) {
         i===0?X.moveTo(x,y):X.lineTo(x,y);
       }
       X.stroke(); X.setLineDash([]); X.restore();
-      // snake
+      // snake line
       if (r.tHead>0.005) {
         const S=100,i0=Math.floor(r.tTail*S),i1=Math.ceil(r.tHead*S);
         X.save();
@@ -523,30 +530,34 @@ function frame(now) {
       if (r.tHead>=1&&r.tTail>=1) { r.stage='arrive'; r.st=0; }
 
     } else if (r.stage==='arrive') {
-      r.roughA=clamp(1-r.st/500,0,1); r.labelOrigA=clamp(1-r.st/500,0,1);
-      r.gemA=clamp(r.st/500,0,1); r.labelDestA=clamp(r.st/400,0,1);
+      r.roughA    =clamp(1-r.st/500,0,1);
+      r.labelOrigA=clamp(1-r.st/500,0,1);
+      r.gemA      =clamp(r.st/500,0,1);
+      r.labelDestA=clamp(r.st/400,0,1);
       drawRoughGem(r.ox,r.oy,r.roughA*.85);
       drawLabel(r.orig.name,r.ox,r.oy-18,r.labelOrigA*.65);
-      drawGem(r.gemCut,r.dx,r.dy,r.gemA);
-      drawLabel(r.dest.name,r.dx,r.dy+22,r.labelDestA*.7);
+      drawGem(r.gemCut,ix,iy,r.gemA);          // gem above dot
+      drawLabel(r.dest.name,ix,ly,r.labelDestA*.7); // label below dot
       if (r.st>2000) { r.stage='transform'; r.st=0; }
 
     } else if (r.stage==='transform') {
-      r.gemA=clamp(1-r.st/400,0,1); r.iconA=clamp((r.st-200)/450,0,1); r.labelDestA=1;
-      drawGem(r.gemCut,r.dx,r.dy,r.gemA);
-      drawLabel(r.dest.name,r.dx,r.dy+22,r.labelDestA*.7);
-      if (r.iconType==='jewelry')         drawJewelry(r.jewel,r.dx,r.dy,r.iconA);
-      else if (r.iconType==='blockchain') drawBlockchain(r.dx,r.dy,r.iconA);
-      else if (r.iconType==='vault')      drawVault(r.dx,r.dy,r.iconA);
+      r.gemA =clamp(1-r.st/400,0,1);
+      r.iconA=clamp((r.st-200)/450,0,1);
+      r.labelDestA=1;
+      drawGem(r.gemCut,ix,iy,r.gemA);          // gem fades out above dot
+      if (r.iconType==='jewelry')         drawJewelry(r.jewel,ix,iy,r.iconA); // icon fades in above dot
+      else if (r.iconType==='blockchain') drawBlockchain(ix,iy,r.iconA);
+      else if (r.iconType==='vault')      drawVault(ix,iy,r.iconA);
+      drawLabel(r.dest.name,ix,ly,r.labelDestA*.7); // label stays below dot
       if (r.st>2200) { r.stage='fade'; r.st=0; }
 
     } else if (r.stage==='fade') {
       const t=clamp(r.st/900,0,1);
       r.iconA=1-t; r.labelDestA=1-t;
-      if (r.iconType==='jewelry')         drawJewelry(r.jewel,r.dx,r.dy,r.iconA);
-      else if (r.iconType==='blockchain') drawBlockchain(r.dx,r.dy,r.iconA);
-      else if (r.iconType==='vault')      drawVault(r.dx,r.dy,r.iconA);
-      drawLabel(r.dest.name,r.dx,r.dy+22,r.labelDestA*.7);
+      if (r.iconType==='jewelry')         drawJewelry(r.jewel,ix,iy,r.iconA); // fades out above dot
+      else if (r.iconType==='blockchain') drawBlockchain(ix,iy,r.iconA);
+      else if (r.iconType==='vault')      drawVault(ix,iy,r.iconA);
+      drawLabel(r.dest.name,ix,ly,r.labelDestA*.7); // fades out below dot
       if (r.st>900) keep=false;
     }
     return keep;

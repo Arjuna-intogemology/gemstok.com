@@ -119,9 +119,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Primary trigger for header UI states
             if (typeof updateAuthUI === 'function') updateAuthUI();
             // Boot GemTrace background
+            const path = window.location.pathname;
+        if (path.includes('contact.html') || path.includes('profile.html')) {
             const s = document.createElement('script');
             s.src = 'parts/gemtrace-bg.js';
             document.body.appendChild(s);
+    }
         }),
         loadPart('footer-part', 'parts/footer.html')
     ];
