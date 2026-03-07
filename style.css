@@ -246,7 +246,7 @@ p, a, span, .hero-description, .btn-vault {
    ========================================= */
 
 .vault-sections {
-    margin-top: -120px; /* Precision pull-up */
+    margin-top: -90px; /* Precision pull-up */
     padding: 20px 0;
 }
 /* Tighten the gap for all section titles */
@@ -352,11 +352,11 @@ p, a, span, .hero-description, .btn-vault {
     border-style: dashed;
 }
 
-/* ... [Previous Product Slider CSS] ... */
+
 
 .product-box:hover {
     border-color: var(--neon-blue);
-    /* ... rest of your code ... */
+    
 }
 /* =========================================
    5. AGENCY SECTION
