@@ -121,8 +121,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // Boot GemTrace background
             const path = window.location.pathname;
         if (path.includes('contact.html') || path.includes('profile.html')) {
+            const css = document.createElement('link');
+            css.rel  = 'stylesheet';
+            css.href = 'gemtrace_map_animation/gemtrace-bg.css';
+            document.head.appendChild(css);
+            
             const s = document.createElement('script');
-            s.src = 'parts/gemtrace-bg.js';
+            s.src = 'gemtrace_map_animation/gemtrace-bg.js';
             document.body.appendChild(s);
     }
         }),

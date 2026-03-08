@@ -1,0 +1,38 @@
+/* ============================================================
+   GEMTRACE BACKGROUND — gemtrace-bg.css  v2.0
+   Pair with gemtrace-bg.js
+   ============================================================ */
+
+#gemtrace-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: -1.5;
+  pointer-events: none;
+  display: block;
+}
+
+#gemtrace-label {
+  position: fixed;
+  bottom: 24px;
+  left: 28px;
+  z-index: -1.55;
+  pointer-events: none;
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.38em;
+  color: rgba(0, 217, 255, 0.9); 
+  text-shadow: 0 0 8px rgba(0, 217, 255, 0.6);
+  text-transform: uppercase;
+  line-height: 1.6;
+  user-select: none;
+}
+
+#gemtrace-label span {
+  display: block;
+  font-size: 7px;
+  letter-spacing: 0.22em;
+  color: rgba(0, 217, 255, 0.5);
+  margin-top: 6px;
+  margin-top: 2px;
+}
