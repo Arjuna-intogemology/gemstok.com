@@ -1,14 +1,23 @@
 <section class="profile-container">
+
+    <!-- HEADER: Identity + Actions -->
     <div class="profile-header">
-        <div class="user-meta">
-            <span class="rank-tag">GEM ENTREPRENEUR</span>
-            <h2>V001_TRADER_SESSION</h2>
-            <p class="join-date">Authorized since: 2026-03-03</p>
+        <div class="profile-identity">
+            <div class="profile-avatar">
+                <i class='bx bx-user-circle'></i>
+            </div>
+            <div class="user-meta">
+                <span class="rank-tag">EXPLORER</span>
+                <h2>V001_TRADER_SESSION</h2>
+                <p class="join-date">Authorized since: 2026-03-03</p>
+            </div>
         </div>
         <button onclick="handleLogout()" class="logout-btn">TERMINATE SESSION</button>
     </div>
 
+    <!-- ROW 1: Paths -->
     <div class="profile-grid">
+
         <div class="path-card academic">
             <div class="path-icon"><i class='bx bx-book-content'></i></div>
             <h3>Academic Path</h3>
@@ -37,5 +46,70 @@
             <p class="small-text">Accessing 300+ Gem Database...</p>
             <div class="inventory-status">0 / 300 UNLOCKED</div>
         </div>
+
     </div>
+
+    <!-- ROW 2: Ecosystem Access -->
+    <div class="profile-section-title">ECOSYSTEM ACCESS</div>
+    <div class="profile-grid">
+
+        <div class="path-card">
+            <div class="path-icon"><i class='bx bx-store'></i></div>
+            <h3>ManiKVault</h3>
+            <p class="small-text">Gem trade marketplace</p>
+            <a href="https://manikvault.com" target="_blank" class="profile-link">ENTER VAULT →</a>
+        </div>
+
+        <div class="path-card">
+            <div class="path-icon"><i class='bx bx-link-alt'></i></div>
+            <h3>TraceGems</h3>
+            <p class="small-text">Blockchain stone verification</p>
+            <a href="https://tracegems.com" target="_blank" class="profile-link">VERIFY STONE →</a>
+        </div>
+
+        <div class="path-card">
+            <div class="path-icon"><i class='bx bx-line-chart'></i></div>
+            <h3>FinTrack+</h3>
+            <p class="small-text">Financial tracking for gem traders</p>
+            <span class="profile-coming-soon">COMING SOON</span>
+        </div>
+
+    </div>
+
+    <!-- ROW 3: Account Settings -->
+    <div class="profile-section-title">ACCOUNT SETTINGS</div>
+    <div class="profile-settings">
+
+        <div class="settings-row">
+            <span class="settings-label">DISPLAY NAME</span>
+            <span class="settings-value" id="settings-name">V001_TRADER_SESSION</span>
+            <button class="settings-edit-btn" onclick="editField('name')">EDIT</button>
+        </div>
+
+        <div class="settings-row">
+            <span class="settings-label">EMAIL</span>
+            <span class="settings-value" id="settings-email">—</span>
+            <button class="settings-edit-btn" onclick="editField('email')">EDIT</button>
+        </div>
+
+        <div class="settings-row">
+            <span class="settings-label">TIER</span>
+            <span class="settings-value" id="settings-tier">EXPLORER</span>
+            <a href="register.html" class="settings-edit-btn">UPGRADE</a>
+        </div>
+
+        <div class="settings-row">
+            <span class="settings-label">MEMBER SINCE</span>
+            <span class="settings-value">2026-03-03</span>
+            <span></span>
+        </div>
+
+        <div class="settings-row danger-row">
+            <span class="settings-label">SESSION</span>
+            <span class="settings-value">ACTIVE</span>
+            <button class="settings-edit-btn danger-btn" onclick="handleLogout()">TERMINATE</button>
+        </div>
+
+    </div>
+
 </section>

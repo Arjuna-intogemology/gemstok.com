@@ -5,20 +5,83 @@
 
 <div class="registration-card">
     <form id="register-form">
-        <div class="form-section">
-            <h3><i class='bx bx-user-circle'></i> IDENTITY INITIALIZATION</h3>
-            <div class="photo-upload-container">
-                <label for="profile-photo" class="photo-placeholder">
-                    <i class='bx bx-camera'></i>
-                    <span>UPLOAD PHOTO</span>
-                </label>
-                <input type="file" id="profile-photo" hidden>
+
+        <!-- PHOTO -->
+        <div class="photo-upload-container">
+            <label for="reg-photo" class="photo-placeholder">
+                <i class='bx bx-camera'></i>
+                <span>UPLOAD PHOTO</span>
+            </label>
+            <input type="file" id="reg-photo" hidden>
+        </div>
+
+        <!-- BASE FIELDS -->
+        <div class="input-group">
+            <label>FULL NAME*</label>
+            <input type="text" id="reg-name" placeholder="Your full name" required>
+        </div>
+
+        <div class="input-group">
+            <label>EMAIL*</label>
+            <input type="email" id="reg-email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="input-group">
+            <label>COUNTRY*</label>
+            <input type="text" id="reg-country" placeholder="Country" required>
+        </div>
+
+        <!-- STUDENT TIER BUTTON -->
+        <button type="button" class="tier-activate-btn" id="btn-student" onclick="activateTier('student')">
+            FOR STUDENT ACCESS
+        </button>
+
+        <!-- TRADER FIELDS (hidden by default) -->
+        <div id="trader-fields" style="display:none;">
+            <div class="input-group">
+                <label>PHONE*</label>
+                <input type="tel" id="reg-phone" placeholder="+94 77 000 0000">
             </div>
             <div class="input-group">
-                <label>IDENTIFIER</label>
-                <input type="text" placeholder="Username" required>
+                <label>TELEGRAM</label>
+                <input type="text" id="reg-telegram" placeholder="@yourhandle">
+            </div>
+            <div class="input-group">
+                <label>CITY/TOWN*</label>
+                <input type="text" id="reg-town" placeholder="Your town">
             </div>
         </div>
-        <button type="submit" class="auth-btn registration-submit">INITIALIZE</button>
+
+        <!-- TRADER TIER BUTTON -->
+        <button type="button" class="tier-activate-btn" id="btn-trader" onclick="activateTier('trader')">
+           FOR TRADER ACCESS
+        </button>
+
+        <!-- BUSINESS FIELDS (hidden by default) -->
+        <div id="business-fields" style="display:none;">
+            <div class="input-group">
+                <label>BUSINESS NAME*</label>
+                <input type="text" id="reg-bizname" placeholder="Registered business name">
+            </div>
+            <div class="input-group">
+                <label>BUSINESS REGISTRATION DOC*</label>
+                <input type="file" id="reg-brdoc" class="file-input">
+            </div>
+            <div class="input-group">
+                <label>TAX REGISTRATION NO <span class="optional-tag">(OPTIONAL)</span></label>
+                <input type="text" id="reg-taxno" placeholder="Tax registration number">
+            </div>
+        </div>
+
+        <!-- BUSINESS TIER BUTTON -->
+        <button type="button" class="tier-activate-btn" id="btn-business" onclick="activateTier('business')">
+            FOR BUSINESS ACCESS
+        </button>
+
+        <!-- SUBMIT -->
+        <button type="submit" class="auth-btn registration-submit" id="reg-submit" style="display:none;">
+            INITIALIZE GEMSTOK ID
+        </button>
+
     </form>
 </div>

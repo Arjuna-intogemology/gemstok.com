@@ -336,3 +336,95 @@ window.submitForgotKey = function() {
     document.querySelector('#forgot-view .auth-btn').style.pointerEvents = 'none';
     document.querySelector('#forgot-view .auth-btn').style.opacity = '0.5';
 }
+
+/**--------------------------------------------------------
+ * [MODULE 10: REGISTRATION]
+ ---------------------------------------------------------*/
+ window.activateTier = function(tier) {
+    const tiers = ['student', 'trader', 'business'];
+    
+    // Reset all buttons
+    tiers.forEach(t => {
+        const btn = document.getElementById('btn-' + t);
+        if (btn) {
+            btn.classList.remove('active');
+        }
+    });
+
+    // Activate selected
+    document.getElementById('btn-' + tier).classList.add('active');
+    localStorage.setItem('gemstok_tier', tier);
+
+    // Show correct fields
+    document.getElementById('trader-fields').style.display = tier === 'trader' || tier === 'business' ? 'block' : 'none';
+    document.getElementById('business-fields').style.display = tier === 'business' ? 'block' : 'none';
+
+    // Show submit
+    document.getElementById('reg-submit').style.display = 'block';
+}
+document.addEventListener('submit', function(e) {
+    if (e.target && e.target.id === 'register-form') {
+        e.preventDefault();
+
+        const tier = localStorage.getItem('gemstok_tier');
+
+        // Base validation
+        const name = document.getElementById('reg-name').value.trim();
+        const email = document.getElementById('reg-email').value.trim();
+        const country = document.getElementById('reg-country').value.trim();
+
+        if (!name || !email || !country) {
+            showRegError('NAME, EMAIL AND COUNTRY ARE REQUIRED.');
+            return;
+        }
+
+        // Trader validation
+        if (tier === 'trader' || tier === 'business') {
+            const phone = document.getElementById('reg-phone').value.trim();
+            const town = document.getElementById('reg-town').value.trim();
+            if (!phone || !town) {
+                showRegError('PHONE AND TOWN ARE REQUIRED FOR TRADER ACCESS.');
+                return;
+            }
+        }
+
+        // Business validation
+        if (tier === 'business') {
+            const bizname = document.getElementById('reg-bizname').value.trim();
+            const brdoc = document.getElementById('reg-brdoc').files.length;
+            if (!bizname || !brdoc) {
+                showRegError('BUSINESS NAME AND REGISTRATION DOC ARE REQUIRED.');
+                return;
+            }
+        }
+
+        // All good — MVP mock submit
+        showRegSuccess();
+    }
+});
+
+function showRegError(msg) {
+    let el = document.getElementById('reg-msg');
+    if (!el) {
+        el = document.createElement('div');
+        el.id = 'reg-msg';
+        el.style.cssText = 'margin-top:15px; font-size:0.65rem; letter-spacing:2px; text-align:center;';
+        document.getElementById('reg-submit').after(el);
+    }
+    el.style.color = '#ff4444';
+    el.innerText = msg;
+}
+
+function showRegSuccess() {
+    let el = document.getElementById('reg-msg');
+    if (!el) {
+        el = document.createElement('div');
+        el.id = 'reg-msg';
+        el.style.cssText = 'margin-top:15px; font-size:0.65rem; letter-spacing:2px; text-align:center;';
+        document.getElementById('reg-submit').after(el);
+    }
+    el.style.color = 'var(--neon-blue)';
+    el.innerText = 'GEMSTOK ID INITIALIZED. WELCOME TO THE NETWORK.';
+    document.getElementById('reg-submit').style.opacity = '0.3';
+    document.getElementById('reg-submit').style.pointerEvents = 'none';
+}
