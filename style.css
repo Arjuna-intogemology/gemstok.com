@@ -1396,6 +1396,51 @@ p, a, span, .hero-description, .btn-vault {
     transform: scale(1.2);
 }
 
+.vault-notice {
+    border: 1px solid rgba(0, 217, 255, 0.15);
+    border-radius: 12px;
+    padding: 18px 25px;
+    margin-bottom: 40px;
+    background: rgba(0, 217, 255, 0.03);
+    font-family: var(--font-main);
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    line-height: 1.8;
+}
+
+.vault-notice i.bx-shield-quarter {
+    color: var(--neon-blue);
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.vault-notice-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.vault-notice-btn {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-dim);
+    font-family: var(--font-heading);
+    font-size: 0.5rem;
+    letter-spacing: 2px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.vault-notice-btn:hover {
+    border-color: var(--neon-blue);
+    color: var(--neon-blue);
+}
+
 /*=========================================================
  * 13. REGISTRATION page
  * Layout and UI for the full-page enrollment portal.
