@@ -176,23 +176,22 @@ async function hydrateProfile() {
     const token = localStorage.getItem('gemstok_token');
     if (!token) return;
 
-    // TARGET: The profile fragment's name and rank
-    const nameDisplay = document.querySelector('.user-meta h2');
     const rankDisplay = document.querySelector('.rank-tag');
+    const tierDisplay = document.getElementById('settings-tier');
 
-    if (nameDisplay) {
-        // MOCK DATA: Later, this will be: const data = await fetchUserData(token);
-        const userData = {
-            username: "TRADER_ALPHA_01",
-            rank: "GEM ENTREPRENEUR",
-            progress: "40%"
-        };
+    const tier = localStorage.getItem('gemstok_tier') || 'explorer';
+    const tierLabels = {
+        explorer:  'EXPLORER',
+        student:   'STUDENT',
+        trader:    'TRADER',
+        business:  'BUSINESS'
+    };
 
-        nameDisplay.innerText = userData.username;
-        rankDisplay.innerText = userData.rank;
-        
-        console.log("Vault Data Decrypted: User Identified.");
-    }
+    const label = tierLabels[tier] || 'EXPLORER';
+    if (rankDisplay) rankDisplay.innerText = label;
+    if (tierDisplay) tierDisplay.innerText = label;
+
+    console.log("Vault Data Decrypted: Tier — " + label);
 }
 
 /**----------------------------------------------------------------
@@ -428,3 +427,31 @@ function showRegSuccess() {
     document.getElementById('reg-submit').style.opacity = '0.3';
     document.getElementById('reg-submit').style.pointerEvents = 'none';
 }
+
+/**--------------------------------------------------------
+ * [MODULE 11: THEME TOGGLE]
+ ---------------------------------------------------------*/
+window.toggleProfileTheme = function() {
+    const main = document.querySelector('main');
+    const icon = document.getElementById('theme-icon');
+    main.classList.toggle('profile-light');
+    if (main.classList.contains('profile-light')) {
+        icon.className = 'bx bx-moon';
+        localStorage.setItem('profile_theme', 'light');
+    } else {
+        icon.className = 'bx bx-sun';
+        localStorage.setItem('profile_theme', 'dark');
+    }
+}
+
+// Apply saved profile theme on load
+setTimeout(() => {
+    if (localStorage.getItem('profile_theme') === 'light') {
+        const main = document.querySelector('main');
+        if (main) {
+            main.classList.add('profile-light');
+            const icon = document.getElementById('theme-icon');
+            if (icon) icon.className = 'bx bx-moon';
+        }
+    }
+}, 100);

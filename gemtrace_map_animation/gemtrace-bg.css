@@ -7,16 +7,17 @@
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  z-index: -1.5;
+  z-index: 0;
   pointer-events: none;
   display: block;
+  opacity: 0.55;
 }
 
 #gemtrace-label {
   position: fixed;
   bottom: 24px;
   left: 28px;
-  z-index: -1.55;
+  z-index: 0;
   pointer-events: none;
   font-family: 'Courier New', monospace;
   font-size: 9px;
@@ -26,6 +27,7 @@
   text-transform: uppercase;
   line-height: 1.6;
   user-select: none;
+  opacity: 0.45;
 }
 
 #gemtrace-label span {
@@ -37,10 +39,5 @@
   margin-top: 2px;
 }
 
-body.light-mode #gemtrace-canvas {
-  opacity: 0.15;
-}
 
-body.light-mode #gemtrace-label {
-  opacity: 0;
-}
+

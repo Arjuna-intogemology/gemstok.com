@@ -1,24 +1,32 @@
 <section class="profile-container">
 
-    <!-- HEADER: Identity + Actions -->
+    <!-- HEADER -->
     <div class="profile-header">
         <div class="profile-identity">
             <div class="profile-avatar">
-                <i class='bx bx-user-circle'></i>
+                <i class='bx bx-user-circle'></i>            
             </div>
             <div class="user-meta">
                 <span class="rank-tag">EXPLORER</span>
-                <h2>V001_TRADER_SESSION</h2>
+                <p>V001_TRADER_SESSION</p>
                 <p class="join-date">Authorized since: 2026-03-03</p>
             </div>
         </div>
-        <button onclick="handleLogout()" class="logout-btn">TERMINATE SESSION</button>
+        <div class="profile-header-actions">
+            <button class="theme-toggle-btn" onclick="toggleProfileTheme()" title="Toggle Theme">
+                <i class='bx bx-sun' id="theme-icon"></i>
+            </button>
+            <button onclick="handleLogout()" class="logout-btn">Log Out</button>
+            <a href="index.html" class="theme-toggle-btn" title="Go Home">
+                <i class='bx bx-home-alt-2'></i>
+            </a>
+        </div>
     </div>
 
-    <!-- ROW 1: Paths -->
+    <!-- ROW 1: PATHS -->
     <div class="profile-grid">
 
-        <div class="path-card academic">
+        <div class="path-card">
             <div class="path-icon"><i class='bx bx-book-content'></i></div>
             <h3>Academic Path</h3>
             <div class="progress-bar"><div class="fill" style="width: 40%;"></div></div>
@@ -27,38 +35,29 @@
                 <li class="current">intoGEMOLOGY main flagship</li>
                 <li class="locked">advancedGEMOLOGY</li>
             </ul>
+            <a href="https://intogemology.com" target="_blank" class="profile-link">GO TO INTOGEMOLOGY →</a>
         </div>
-
-        <div class="path-card trading">
-            <div class="path-icon"><i class='bx bx-trending-up'></i></div>
-            <h3>Trading Path</h3>
-            <div class="progress-bar"><div class="fill" style="width: 20%;"></div></div>
-            <ul class="module-list">
-                <li class="complete">trade-inGEM</li>
-                <li class="current">market-inGEM</li>
-                <li class="locked">GEM TRADER</li>
-            </ul>
-        </div>
-
-        <div class="path-card assets">
-            <div class="path-icon"><i class='bx bx-diamond'></i></div>
-            <h3>Gem Inventory</h3>
-            <p class="small-text">Accessing 300+ Gem Database...</p>
-            <div class="inventory-status">0 / 300 UNLOCKED</div>
-        </div>
-
-    </div>
-
-    <!-- ROW 2: Ecosystem Access -->
-    <div class="profile-section-title">ECOSYSTEM ACCESS</div>
-    <div class="profile-grid">
 
         <div class="path-card">
             <div class="path-icon"><i class='bx bx-store'></i></div>
             <h3>ManiKVault</h3>
-            <p class="small-text">Gem trade marketplace</p>
-            <a href="https://manikvault.com" target="_blank" class="profile-link">ENTER VAULT →</a>
+            <p class="small-text">Inventory control + classified ads</p>
+            <div class="inventory-status">0 / 100 FREE SLOTS USED</div>
+            <a href="https://manikvault.com" target="_blank" class="profile-link">ENTER MANIKVAULT →</a>
         </div>
+
+        <div class="path-card card-secret">
+            <div class="path-icon"><i class='bx bx-lock-alt'></i></div>
+            <h3>Project X</h3>
+            <p class="small-text">Something is being built...</p>
+            <span class="profile-coming-soon">COMING SOON</span>
+        </div>
+
+    </div>
+
+    <!-- ROW 2: ECOSYSTEM -->
+    <div class="profile-section-title">ECOSYSTEM ACCESS</div>
+    <div class="profile-grid">
 
         <div class="path-card">
             <div class="path-icon"><i class='bx bx-link-alt'></i></div>
@@ -70,26 +69,33 @@
         <div class="path-card">
             <div class="path-icon"><i class='bx bx-line-chart'></i></div>
             <h3>FinTrack+</h3>
-            <p class="small-text">Financial tracking for gem traders</p>
+            <p class="small-text">Profit calculator · credit log · broker logs</p>
+            <span class="profile-coming-soon">COMING SOON</span>
+        </div>
+
+        <div class="path-card">
+            <div class="path-icon"><i class='bx bx-bar-chart-alt-2'></i></div>
+            <h3>Performa+</h3>
+            <p class="small-text">Business performance intelligence</p>
             <span class="profile-coming-soon">COMING SOON</span>
         </div>
 
     </div>
 
-    <!-- ROW 3: Account Settings -->
+    <!-- ROW 3: ACCOUNT SETTINGS -->
     <div class="profile-section-title">ACCOUNT SETTINGS</div>
     <div class="profile-settings">
 
         <div class="settings-row">
             <span class="settings-label">DISPLAY NAME</span>
             <span class="settings-value" id="settings-name">V001_TRADER_SESSION</span>
-            <button class="settings-edit-btn" onclick="editField('name')">EDIT</button>
+            <button class="settings-edit-btn">EDIT</button>
         </div>
 
         <div class="settings-row">
             <span class="settings-label">EMAIL</span>
             <span class="settings-value" id="settings-email">—</span>
-            <button class="settings-edit-btn" onclick="editField('email')">EDIT</button>
+            <button class="settings-edit-btn">EDIT</button>
         </div>
 
         <div class="settings-row">
