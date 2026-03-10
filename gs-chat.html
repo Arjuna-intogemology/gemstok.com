@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GS CHAT™ — Secure Trade Communications by GEMSTOK</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        :root {
+            --bg:        #050505;
+            --neon-blue: #00d9ff;
+            --text-main: #e0e0e0;
+            --text-dim:  #666;
+            --border:    rgba(255,255,255,0.06);
+            --font-main: 'JetBrains Mono', monospace;
+            --font-head: 'Orbitron', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── SCAN LINE OVERLAY ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,217,255,0.012) 2px,
+                rgba(0,217,255,0.012) 4px
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 48px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(5,5,5,0.85);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-family: var(--font-head);
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            color: var(--neon-blue);
+            text-decoration: none;
+        }
+
+        .nav-logo span {
+            color: rgba(255,255,255,0.3);
+            font-size: 0.5rem;
+            margin-left: 8px;
+            letter-spacing: 3px;
+        }
+
+        .nav-back {
+            font-size: 0.55rem;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-back:hover { color: var(--neon-blue); }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 40px 80px;
+            position: relative;
+            text-align: center;
+        }
+
+        /* animated ring */
+        .hero-ring {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,217,255,0.06);
+            animation: pulse-ring 4s ease-in-out infinite;
+        }
+
+        .hero-ring:nth-child(2) {
+            width: 800px;
+            height: 800px;
+            border-color: rgba(0,217,255,0.03);
+            animation-delay: 1s;
+        }
+
+        .hero-ring:nth-child(3) {
+            width: 1000px;
+            height: 1000px;
+            border-color: rgba(0,217,255,0.015);
+            animation-delay: 2s;
+        }
+
+        @keyframes pulse-ring {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.04); opacity: 0.5; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.5rem;
+            letter-spacing: 8px;
+            color: var(--neon-blue);
+            opacity: 0.7;
+            margin-bottom: 24px;
+            animation: fadeUp 0.8s ease both;
+        }
+
+        .hero-title {
+            font-family: var(--font-head);
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            letter-spacing: 8px;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 12px;
+            animation: fadeUp 0.8s ease 0.1s both;
+        }
+
+        .hero-title .tm {
+            font-size: 0.4em;
+            color: var(--neon-blue);
+            vertical-align: super;
+        }
+
+        .hero-sub {
+            font-family: var(--font-head);
+            font-size: 0.6rem;
+            letter-spacing: 6px;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            animation: fadeUp 0.8s ease 0.2s both;
+        }
+
+        .hero-desc {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            max-width: 480px;
+            margin: 0 auto 50px;
+            line-height: 2;
+            letter-spacing: 0.5px;
+            animation: fadeUp 0.8s ease 0.3s both;
+        }
+
+        .hero-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(0,217,255,0.2);
+            border-radius: 100px;
+            padding: 10px 24px;
+            font-size: 0.55rem;
+            letter-spacing: 3px;
+            color: var(--neon-blue);
+            animation: fadeUp 0.8s ease 0.4s both;
+            margin-bottom: 60px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--neon-blue);
+            animation: blink 1.5s ease infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        /* ── MOCK CHAT UI ── */
+        .chat-preview {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            border: 1px solid rgba(0,217,255,0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.02);
+            backdrop-filter: blur(20px);
+            animation: fadeUp 0.8s ease 0.5s both;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(0,217,255,0.03);
+        }
+
+        .chat-header-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--neon-blue);
+            box-shadow: 0 0 8px var(--neon-blue);
+        }
+
+        .chat-header-name {
+            font-family: var(--font-head);
+            font-size: 0.5rem;
+            letter-spacing: 3px;
+            color: #fff;
+            flex: 1;
+        }
+
+        .chat-header-tag {
+            font-size: 0.45rem;
+            letter-spacing: 2px;
+            color: var(--neon-blue);
+            border: 1px solid rgba(0,217,255,0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .chat-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-height: 220px;
+        }
+
+        .msg {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .msg.out {
+            flex-direction: row-reverse;
+        }
+
+        .msg-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,217,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            color: var(--neon-blue);
+            flex-shrink: 0;
+        }
+
+        .msg-bubble {
+            max-width: 75%;
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 0.6rem;
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+        }
+
+        .msg.in .msg-bubble {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            border-bottom-left-radius: 4px;
+        }
+
+        .msg.out .msg-bubble {
+            background: rgba(0,217,255,0.08);
+            border: 1px solid rgba(0,217,255,0.15);
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+
+        .msg-meta {
+            font-size: 0.45rem;
+            color: var(--text-dim);
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        .msg.out .msg-meta { text-align: right; }
+
+        .chat-input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-input-mock {
+            flex: 1;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 8px 16px;
+            font-size: 0.55rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            font-family: var(--font-main);
+        }
+
+        .chat-send-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(0,217,255,0.1);
+            border: 1px solid rgba(0,217,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-blue);
+            font-size: 0.8rem;
+            cursor: default;
+        }
+
+        /* ── FEATURES ── */
+        .features {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 100px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-label {
+            font-family: var(--font-head);
+            font-size: 0.5rem;
+            letter-spacing: 6px;
+            color: var(--neon-blue);
+            opacity: 0.6;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            background: rgba(255,255,255,0.01);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(0,217,255,0.15);
+            background: rgba(0,217,255,0.02);
+            transform: translateY(-2px);
+        }
+
+        .feature-card:hover::before { opacity: 1; }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+            margin-bottom: 16px;
+            opacity: 0.8;
+        }
+
+        .feature-title {
+            font-family: var(--font-head);
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+
+        /* ── ECOSYSTEM BAR ── */
+        .ecosystem {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ecosystem-label {
+            font-family: var(--font-head);
+            font-size: 0.45rem;
+            letter-spacing: 5px;
+            color: var(--text-dim);
+            margin-bottom: 24px;
+        }
+
+        .ecosystem-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .ecosystem-link {
+            font-family: var(--font-head);
+            font-size: 0.55rem;
+            letter-spacing: 3px;
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .ecosystem-link:hover { color: var(--neon-blue); }
+
+        .ecosystem-link.active {
+            color: var(--neon-blue);
+            position: relative;
+        }
+
+        .ecosystem-link.active::after {
+            content: '←';
+            margin-left: 6px;
+            font-size: 0.5rem;
+        }
+
+        .ecosystem-divider {
+            color: var(--border);
+            font-size: 0.6rem;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            padding: 40px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-copy {
+            font-size: 0.5rem;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.1);
+        }
+
+        .footer-gem {
+            font-family: var(--font-head);
+            font-size: 0.5rem;
+            letter-spacing: 3px;
+            color: rgba(0,217,255,0.3);
+            text-decoration: none;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 600px) {
+            nav { padding: 16px 20px; }
+            .hero { padding: 100px 20px 60px; }
+            .hero-ring { display: none; }
+            .features { padding: 60px 20px; }
+            .ecosystem { padding: 30px 20px; }
+            .ecosystem-links { gap: 20px; }
+            footer { padding: 30px 20px; flex-direction: column; gap: 12px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="https://gemstok.com" class="nav-logo">
+            GS CHAT<span>BY GEMSTOK™</span>
+        </a>
+        <a href="https://gemstok.com" class="nav-back">
+            <i class='bx bx-arrow-back'></i> RETURN TO GEMSTOK
+        </a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-ring"></div>
+        <div class="hero-ring"></div>
+        <div class="hero-ring"></div>
+
+        <div class="hero-content">
+            <p class="hero-eyebrow">GEMSTOK™ ECOSYSTEM — COMMUNICATIONS</p>
+            <h1 class="hero-title">GS CHAT<span class="tm">™</span></h1>
+            <p class="hero-sub">SECURE TRADE COMMUNICATIONS</p>
+            <p class="hero-desc">
+                A dedicated communication layer for the gem trade. 
+                Dealer to dealer. Verified identities. 
+                Built inside the GemStok ecosystem.
+            </p>
+            <div class="hero-status">
+                <span class="status-dot"></span>
+                V1 — IN DEVELOPMENT
+            </div>
+
+            <!-- MOCK CHAT -->
+            <div class="chat-preview">
+                <div class="chat-header">
+                    <div class="chat-header-dot"></div>
+                    <span class="chat-header-name">TRADE CHANNEL — RATNAPURA</span>
+                    <span class="chat-header-tag">VERIFIED</span>
+                </div>
+                <div class="chat-body">
+                    <div class="msg in">
+                        <div class="msg-avatar"><i class='bx bx-user'></i></div>
+                        <div>
+                            <div class="msg-bubble">Blue sapphire 4.2ct — asking 1800. Certificate attached.</div>
+                            <div class="msg-meta">TRADER · 09:41</div>
+                        </div>
+                    </div>
+                    <div class="msg out">
+                        <div class="msg-avatar"><i class='bx bx-user'></i></div>
+                        <div>
+                            <div class="msg-bubble">Can you share the TraceGems ID?</div>
+                            <div class="msg-meta">YOU · 09:43</div>
+                        </div>
+                    </div>
+                    <div class="msg in">
+                        <div class="msg-avatar"><i class='bx bx-user'></i></div>
+                        <div>
+                            <div class="msg-bubble">TG-2026-00441 — origin verified, Elahera.</div>
+                            <div class="msg-meta">TRADER · 09:44</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-row">
+                    <div class="chat-input-mock">ENCRYPTED CHANNEL — COMING SOON</div>
+                    <div class="chat-send-btn"><i class='bx bx-send'></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <p class="section-label">WHAT GS CHAT WILL DO</p>
+        <div class="features-grid">
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class='bx bx-shield-quarter'></i></div>
+                <div class="feature-title">VERIFIED IDENTITIES</div>
+                <div class="feature-desc">Every participant is a verified GemStok member. No anonymous actors in the trade channel.</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class='bx bx-link-alt'></i></div>
+                <div class="feature-title">TRACEGEMS INTEGRATION</div>
+                <div class="feature-desc">Share stone verification IDs directly in chat. Buyers confirm origin without leaving the conversation.</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class='bx bx-store'></i></div>
+                <div class="feature-title">MANIKVAULT CONNECTED</div>
+                <div class="feature-desc">Link inventory listings into messages. Negotiate and close deals from a single interface.</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class='bx bx-globe'></i></div>
+                <div class="feature-title">TRADE CHANNELS</div>
+                <div class="feature-desc">Open channels by region, stone type, or tier. Ratnapura. Bangkok. Hong Kong. Your network.</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class='bx bx-lock-alt'></i></div>
+                <div class="feature-title">ENCRYPTED PRIVATE CHAT</div>
+                <div class="feature-desc">Direct dealer-to-dealer communication. What's negotiated stays between the parties involved.</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class='bx bx-history'></i></div>
+                <div class="feature-title">DEAL HISTORY LOG</div>
+                <div class="feature-desc">Every agreed transaction is logged to your GemStok profile. Your trade record, always intact.</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ECOSYSTEM -->
+    <div class="ecosystem">
+        <p class="ecosystem-label">GEMSTOK™ ECOSYSTEM</p>
+        <div class="ecosystem-links">
+            <a href="https://gemstok.com" class="ecosystem-link">GEMSTOK</a>
+            <span class="ecosystem-divider">·</span>
+            <a href="https://intogemology.com" class="ecosystem-link">INTOGEMOLOGY</a>
+            <span class="ecosystem-divider">·</span>
+            <a href="https://manikvault.com" class="ecosystem-link">MANIKVAULT</a>
+            <span class="ecosystem-divider">·</span>
+            <a href="https://tracegems.com" class="ecosystem-link">TRACEGEMS</a>
+            <span class="ecosystem-divider">·</span>
+            <a href="#" class="ecosystem-link active">GS CHAT</a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <span class="footer-copy">© 2026 GS CHAT™ — ALL RIGHTS RESERVED</span>
+        <a href="https://gemstok.com" class="footer-gem">GEMSTOK™ ECOSYSTEM</a>
+    </footer>
+
+</body>
+</html>
