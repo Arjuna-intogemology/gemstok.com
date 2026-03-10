@@ -23,10 +23,9 @@ const X   = CV.getContext('2d');
 
 const LBL = document.createElement('div');
 LBL.id    = 'gemtrace-label';
-LBL.innerHTML = `GemLog<span>Global Supply Intelligence<br>
-    Brought to you by GemLogBook.com<br>
+LBL.innerHTML = `TraceGems.Com
     <p><strong>System Status:</strong> Simulation Mode (v1.0)</p>
-    Real-time blockchain integration scheduled for Q3 2026.</span>`;
+    `;
     
 /* ── DIMENSIONS ──────────────────────────────────────────────────────────── */
 let W, H, DPR;
@@ -144,15 +143,15 @@ function drawMap() {
   X.save();
   X.lineJoin = 'round';
   // Pass 1 — ocean bleed glow
-  X.strokeStyle = 'rgba(255,255,255,0.005)';
+  X.strokeStyle = 'rgba(255,255,255,0.01)';
   X.lineWidth   = 3.5;
-  X.shadowColor = 'rgba(255,255,255,0.3)';
+  X.shadowColor = 'rgba(255,255,255,0.9)';
   X.shadowBlur  = 20;
   for (const p of mapPaths) X.stroke(p);
   // Pass 2 — crisp coastline
-  X.strokeStyle = 'rgba(255,255,255,0.2)';
+  X.strokeStyle = 'rgba(255,255,255,0.6)';
   X.lineWidth   = 0.5;
-  X.shadowColor = 'rgba(255,255,255,0.15)';
+  X.shadowColor = 'rgba(255,255,255,0.3)';
   X.shadowBlur  = 3;
   for (const p of mapPaths) X.stroke(p);
   X.restore();
@@ -187,7 +186,7 @@ const MARKETS = [
 // Icon pool — fully random per route, any city
 const ICON_POOL    = ['ring','necklace','tiara','bracelet','blockchain','padlock','microscope','book'];
 const GEM_CUTS     = ['brilliant','oval','pear','cushion','marquise','emerald'];
-const CRYSTAL_TYPES= ['hexprism','octahedron','rhombo','prism','blocky','elongated'];
+const CRYSTAL_TYPES= [/*'hexprism'*/,'octahedron',/*'rhombo'*/,'prism','blocky','elongated'];
 
 function npos(n) { return project(n.lon, n.lat); }
 

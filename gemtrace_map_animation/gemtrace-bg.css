@@ -36,3 +36,11 @@
   margin-top: 6px;
   margin-top: 2px;
 }
+
+body.light-mode #gemtrace-canvas {
+  opacity: 0.15;
+}
+
+body.light-mode #gemtrace-label {
+  opacity: 0;
+}
