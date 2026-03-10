@@ -1,50 +1,39 @@
-import { useState, useCallback } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinTrack+ | GemStok</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useCallback } = React;
 
 const T = {
   en: {
-    appTitle: "Cash Flow",
-    income: "Income",
-    expenses: "Expenses",
-    net: "Net",
-    tracker: "Tracker",
-    calculator: "Calculator",
-    all: "All",
-    expense: "Expense",
-    description: "Description",
-    addEntry: "+ Add Entry",
-    noEntries: "No entries",
-    useInTracker: "↑ Use in Tracker",
-    settings: "Settings",
-    language: "Language",
-    theme: "Theme",
-    dark: "Dark",
-    light: "Light",
+    appTitle: "Cash Flow", income: "Income", expenses: "Expenses", net: "Net",
+    tracker: "Tracker", calculator: "Calculator", all: "All", expense: "Expense",
+    description: "Description", addEntry: "+ Add Entry", noEntries: "No entries",
+    useInTracker: "↑ Use in Tracker", settings: "Settings", language: "Language",
+    theme: "Theme", dark: "Dark", light: "Light",
     categories: {
-      income: ["Salary", "Freelance", "Investment", "Rental", "Other Income"],
-      expense: ["Housing", "Food", "Transport", "Health", "Entertainment", "Utilities", "Other"],
+      income: ["Salary","Freelance","Investment","Rental","Other Income"],
+      expense: ["Housing","Food","Transport","Health","Entertainment","Utilities","Other"],
     },
   },
   si: {
-    appTitle: "මුදල් ප්‍රවාහය",
-    income: "ආදායම",
-    expenses: "වියදම්",
-    net: "ශුද්ධ",
-    tracker: "ලුහුබැඳීම",
-    calculator: "කැල්කියුලේටරය",
-    all: "සියල්ල",
-    expense: "වියදම",
-    description: "විස්තරය",
-    addEntry: "+ ඇතුළත් කරන්න",
-    noEntries: "ඇතුළත් කිරීම් නැත",
-    useInTracker: "↑ ලුහුබැඳීමේ භාවිත කරන්න",
-    settings: "සැකසීම්",
-    language: "භාෂාව",
-    theme: "තේමාව",
-    dark: "අඳුරු",
-    light: "ආලෝකමත්",
+    appTitle: "මුදල් ප්‍රවාහය", income: "ආදායම", expenses: "වියදම්", net: "ශුද්ධ",
+    tracker: "ලුහුබැඳීම", calculator: "කැල්කියුලේටරය", all: "සියල්ල", expense: "වියදම",
+    description: "විස්තරය", addEntry: "+ ඇතුළත් කරන්න", noEntries: "ඇතුළත් කිරීම් නැත",
+    useInTracker: "↑ ලුහුබැඳීමේ භාවිත කරන්න", settings: "සැකසීම්", language: "භාෂාව",
+    theme: "තේමාව", dark: "අඳුරු", light: "ආලෝකමත්",
     categories: {
-      income: ["වැටුප", "නිදහස් කාර්ය", "ආයෝජන", "කුලිය", "වෙනත් ආදායම"],
-      expense: ["නිවාස", "ආහාර", "ප්‍රවාහනය", "සෞඛ්‍යය", "විනෝදාස්වාදය", "උපයෝගිතා", "වෙනත්"],
+      income: ["වැටුප","නිදහස් කාර්ය","ආයෝජන","කුලිය","වෙනත් ආදායම"],
+      expense: ["නිවාස","ආහාර","ප්‍රවාහනය","සෞඛ්‍යය","විනෝදාස්වාදය","උපයෝගිතා","වෙනත්"],
     },
   },
 };
@@ -52,16 +41,21 @@ const T = {
 const formatCurrency = (n) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 }).format(n);
 
-export default function CashFlowTracker() {
+function CashFlowTracker() {
   const [lang, setLang] = useState("en");
   const [dark, setDark] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const t = T[lang];
 
   const [entries, setEntries] = useState(() => {
-  const saved = localStorage.getItem("cashflow_entries");
-  return saved ? JSON.parse(saved) : [];
-});
+    const saved = localStorage.getItem("cashflow_entries");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const saveEntries = (newEntries) => {
+    setEntries(newEntries);
+    localStorage.setItem("cashflow_entries", JSON.stringify(newEntries));
+  };
 
   const [form, setForm] = useState({ type: "income", category: 0, label: "", amount: "", date: new Date().toISOString().slice(0, 10) });
   const [calcDisplay, setCalcDisplay] = useState("0");
@@ -82,11 +76,12 @@ export default function CashFlowTracker() {
 
   const addEntry = () => {
     if (!form.label || !form.amount || isNaN(parseFloat(form.amount))) return;
-    setEntries(prev => [...prev, { ...form, amount: parseFloat(form.amount), id: Date.now() }]);
+    const newEntries = [...entries, { ...form, amount: parseFloat(form.amount), id: Date.now() }];
+    saveEntries(newEntries);
     setForm(f => ({ ...f, label: "", amount: "" }));
   };
 
-  const removeEntry = (id) => setEntries(prev => prev.filter(e => e.id !== id));
+  const removeEntry = (id) => saveEntries(entries.filter(e => e.id !== id));
 
   const calcInput = useCallback((val) => {
     if (calcFresh) { setCalcDisplay(val === "." ? "0." : val); setCalcFresh(false); }
@@ -129,10 +124,9 @@ export default function CashFlowTracker() {
     pill: "#e8e4de", active: "#1a1814", activeText: "#f5f3ef",
   };
 
-  const siFont = "'Noto Sans Sinhala', sans-serif";
-  const enFont = "'DM Sans', sans-serif";
   const monoFont = "'DM Mono', monospace";
-  const bodyFont = lang === "si" ? siFont : enFont;
+  const bodyFont = lang === "si" ? "'Noto Sans Sinhala', sans-serif" : "'DM Sans', sans-serif";
+  const cats = t.categories;
 
   const css = `
     @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&family=Noto+Sans+Sinhala:wght@300;400;500&display=swap');
@@ -144,8 +138,7 @@ export default function CashFlowTracker() {
     .hperiod{font-size:22px;font-weight:300;color:${th.text};}
     .cogbtn{background:none;border:1px solid ${th.border};border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:${th.textMuted};transition:all .15s;flex-shrink:0;margin-top:2px;}
     .cogbtn:hover,.cogbtn.open{border-color:${th.text};color:${th.text};background:${th.surfaceAlt};}
-    .spanel{width:100%;max-width:480px;background:${th.surface};border:1px solid ${th.border};border-radius:12px;padding:20px;margin-bottom:20px;animation:sd .2s ease;}
-    @keyframes sd{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+    .spanel{width:100%;max-width:480px;background:${th.surface};border:1px solid ${th.border};border-radius:12px;padding:20px;margin-bottom:20px;}
     .stitle{font-family:${monoFont};font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:${th.textMuted};margin-bottom:16px;}
     .srow{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid ${th.border};}
     .srow:last-child{border-bottom:none;padding-bottom:0;}
@@ -166,17 +159,17 @@ export default function CashFlowTracker() {
     .aform{background:${th.surface};border:1px solid ${th.border};border-radius:12px;padding:20px;margin-bottom:20px;display:flex;flex-direction:column;gap:12px;transition:background .3s;}
     .frow{display:flex;gap:8px;}
     .ttog{display:flex;border:1px solid ${th.border};border-radius:8px;overflow:hidden;}
-    .tbtn{flex:1;padding:8px 12px;border:none;background:transparent;font-family:${bodyFont};font-size:${lang==="si"?"12px":"11px"};cursor:pointer;color:${th.textMuted};transition:all .15s;}
+    .tbtn{flex:1;padding:8px 12px;border:none;background:transparent;font-family:${bodyFont};font-size:11px;cursor:pointer;color:${th.textMuted};transition:all .15s;}
     .tbtn.active.income{background:${dark?"#1a3d2b":"#edf7f2"};color:#2d7a4f;}
     .tbtn.active.expense{background:${dark?"#3d1a1a":"#fdf0f0"};color:#b84444;}
     .inp{flex:1;padding:9px 12px;border:1px solid ${th.border};border-radius:8px;background:${dark?th.surfaceAlt:"white"};font-family:${bodyFont};font-size:14px;color:${th.text};outline:none;transition:border-color .15s,background .3s,color .3s;}
     .inp:focus{border-color:${th.text};}
     select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238c8880' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px;background-color:${dark?th.surfaceAlt:"white"};}
     select.inp option{background:${dark?"#242320":"white"};color:${th.text};}
-    .abtn{width:100%;padding:10px;border:none;border-radius:8px;background:${th.active};color:${th.activeText};font-family:${bodyFont};font-size:${lang==="si"?"13px":"12px"};letter-spacing:${lang==="si"?"0":".1em"};cursor:pointer;transition:opacity .15s;}
+    .abtn{width:100%;padding:10px;border:none;border-radius:8px;background:${th.active};color:${th.activeText};font-family:${bodyFont};font-size:12px;letter-spacing:.1em;cursor:pointer;transition:opacity .15s;}
     .abtn:hover{opacity:.75;}
     .filt{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
-    .fbtn{font-family:${bodyFont};font-size:${lang==="si"?"11px":"10px"};padding:5px 12px;border-radius:20px;border:1px solid ${th.border};background:transparent;color:${th.textMuted};cursor:pointer;transition:all .15s;}
+    .fbtn{font-family:${bodyFont};font-size:10px;padding:5px 12px;border-radius:20px;border:1px solid ${th.border};background:transparent;color:${th.textMuted};cursor:pointer;transition:all .15s;}
     .fbtn.active{background:${th.active};color:${th.activeText};border-color:${th.active};}
     .entries{display:flex;flex-direction:column;gap:2px;}
     .entry{display:flex;align-items:center;padding:12px 14px;background:${th.surface};border:1px solid ${th.border};border-radius:8px;gap:12px;transition:background .15s;}
@@ -195,7 +188,7 @@ export default function CashFlowTracker() {
     .cdisp{padding:28px 20px 16px;text-align:right;background:${th.calcBg};}
     .copind{font-family:${monoFont};font-size:11px;color:${th.textMuted};min-height:16px;margin-bottom:4px;}
     .cnum{font-family:${monoFont};font-size:36px;font-weight:300;color:#f5f3ef;letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-    .cubtn{display:block;width:calc(100% - 32px);margin:12px 16px 0;padding:8px;background:#2d7a4f;border:none;border-radius:6px;font-family:${bodyFont};font-size:${lang==="si"?"12px":"10px"};letter-spacing:${lang==="si"?"0":".1em"};color:white;cursor:pointer;transition:opacity .15s;}
+    .cubtn{display:block;width:calc(100% - 32px);margin:12px 16px 0;padding:8px;background:#2d7a4f;border:none;border-radius:6px;font-family:${bodyFont};font-size:10px;letter-spacing:.1em;color:white;cursor:pointer;transition:opacity .15s;}
     .cubtn:hover{opacity:.8;}
     .cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:${th.borderStrong};border-top:1px solid ${th.border};margin-top:12px;}
     .cbtn{padding:18px 8px;border:none;background:${th.calcBtn};font-family:${monoFont};font-size:16px;cursor:pointer;color:${th.text};transition:background .1s;text-align:center;}
@@ -205,9 +198,9 @@ export default function CashFlowTracker() {
     .cbtn.eq{background:${th.active};color:${th.activeText};font-weight:500;}
     .cbtn.eq:hover{opacity:.85;}
     .cbtn.z2{grid-column:span 2;}
+    .back-link{position:fixed;top:16px;left:16px;font-family:${monoFont};font-size:10px;letter-spacing:.1em;color:${th.textMuted};text-decoration:none;border:1px solid ${th.border};padding:6px 12px;border-radius:8px;transition:all .15s;}
+    .back-link:hover{color:${th.text};border-color:${th.text};}
   `;
-
-  const cats = t.categories;
 
   const CogIcon = () => (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -219,9 +212,8 @@ export default function CashFlowTracker() {
   return (
     <>
       <style>{css}</style>
+      <a className="back-link" href="index.html">← GEMSTOK</a>
       <div className="app">
-
-        {/* HEADER */}
         <div className="hrow">
           <div>
             <div className="htitle">{t.appTitle}</div>
@@ -234,7 +226,6 @@ export default function CashFlowTracker() {
           </button>
         </div>
 
-        {/* SETTINGS */}
         {settingsOpen && (
           <div className="spanel">
             <div className="stitle">{t.settings}</div>
@@ -255,20 +246,17 @@ export default function CashFlowTracker() {
           </div>
         )}
 
-        {/* SUMMARY */}
         <div className="summary">
           <div className="scard"><span className="slb">{t.income}</span><span className="val income">{formatCurrency(totalIncome)}</span></div>
           <div className="scard"><span className="slb">{t.expenses}</span><span className="val expense">{formatCurrency(totalExpense)}</span></div>
           <div className="scard"><span className="slb">{t.net}</span><span className={`val net ${netClass}`}>{formatCurrency(net)}</span></div>
         </div>
 
-        {/* TABS */}
         <div className="tabs">
           <button className={`tab ${activeTab === "tracker" ? "active" : ""}`} onClick={() => setActiveTab("tracker")}>{t.tracker}</button>
           <button className={`tab ${activeTab === "calc" ? "active" : ""}`} onClick={() => setActiveTab("calc")}>{t.calculator}</button>
         </div>
 
-        {/* TRACKER */}
         {activeTab === "tracker" && (
           <div className="panel">
             <div className="aform">
@@ -288,13 +276,11 @@ export default function CashFlowTracker() {
               </div>
               <button className="abtn" onClick={addEntry}>{t.addEntry}</button>
             </div>
-
             <div className="filt">
               {[["all", t.all], ["income", t.income], ["expense", t.expense]].map(([val, label]) => (
                 <button key={val} className={`fbtn ${filter === val ? "active" : ""}`} onClick={() => setFilter(val)}>{label}</button>
               ))}
             </div>
-
             <div className="entries">
               {filteredEntries.length === 0 ? (
                 <div className="empty">{t.noEntries}</div>
@@ -313,7 +299,6 @@ export default function CashFlowTracker() {
           </div>
         )}
 
-        {/* CALCULATOR */}
         {activeTab === "calc" && (
           <div className="panel">
             <div className="calc">
@@ -340,8 +325,13 @@ export default function CashFlowTracker() {
             </div>
           </div>
         )}
-
       </div>
     </>
   );
 }
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<CashFlowTracker />);
+</script>
+</body>
+</html>
