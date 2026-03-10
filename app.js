@@ -312,3 +312,27 @@ window.selectTier = function(value, label) {
         });
     }
 }
+window.showForgotView = function() {
+    document.getElementById('login-form').style.display = 'none';
+    document.querySelector('.social-auth').style.display = 'none';
+    document.querySelector('.tier-select').style.display = 'none';
+    document.querySelector('.auth-footer').style.display = 'none';
+    document.getElementById('forgot-view').style.display = 'block';
+}
+
+window.showLoginView = function() {
+    document.getElementById('login-form').style.display = 'flex';
+    document.querySelector('.social-auth').style.display = 'flex';
+    document.querySelector('.tier-select').style.display = 'block';
+    document.querySelector('.auth-footer').style.display = 'flex';
+    document.getElementById('forgot-view').style.display = 'none';
+    document.getElementById('forgot-msg').style.display = 'none';
+    document.getElementById('forgot-email').value = '';
+}
+
+window.submitForgotKey = function() {
+    document.getElementById('forgot-msg').style.display = 'block';
+    document.querySelector('#forgot-view .auth-btn').innerText = '✓ DONE';
+    document.querySelector('#forgot-view .auth-btn').style.pointerEvents = 'none';
+    document.querySelector('#forgot-view .auth-btn').style.opacity = '0.5';
+}

@@ -3,71 +3,56 @@
     <span class="close-icon"><i class='bx bx-x'></i></span>
     <span class="close-text">CANCEL</span>
    </button>
+
     <form id="login-form">
         <div class="input-group">
             <label>IDENTIFIER</label>
             <input type="text" name="username" placeholder="Email or Username" required>
         </div>
-        
         <div class="input-group">
             <label>ACCESS KEY</label>
             <input type="password" name="password" placeholder="Password" required>
         </div>
-
         <button type="submit" class="auth-btn">AUTHORIZE ACCESS</button>
-        
     </form>
 
     <div class="social-auth">
-        <button type="button" class="social-btn google-btn">
-            <i class='bx bxl-google'></i>
-        </button>
-        <button type="button" class="social-btn reddit-btn">
-            <i class='bx bxl-reddit'></i>
-        </button>
+        <button type="button" class="social-btn google-btn"><i class='bx bxl-google'></i></button>
+        <button type="button" class="social-btn reddit-btn"><i class='bx bxl-reddit'></i></button>
     </div>
- 
+
     <div class="tier-select">
-    <div class="tier-dropdown" id="tierDropdown" onclick="toggleTierDropdown()">
-        <span id="tierSelected">EXPLORER</span>
-        <span class="tier-arrow">▼</span>
-    </div>
-    <div class="tier-options" id="tierOptions">
-        <div class="tier-option" onclick="selectTier('explorer', 'EXPLORER')">EXPLORER</div>
-        <div class="tier-option" onclick="selectTier('student', 'STUDENT')">STUDENT</div>
-        <div class="tier-option" onclick="selectTier('trader', 'TRADER')">TRADER</div>
-        <div class="tier-option" onclick="selectTier('business', 'BUSINESS')">BUSINESS</div>
-    </div>
+        <div class="tier-dropdown" id="tierDropdown" onclick="toggleTierDropdown()">
+            <span id="tierSelected">EXPLORER</span>
+            <span class="tier-arrow">▼</span>
+        </div>
+        <div class="tier-options" id="tierOptions">
+            <div class="tier-option" onclick="selectTier('explorer', 'EXPLORER')">EXPLORER</div>
+            <div class="tier-option" onclick="selectTier('student', 'STUDENT')">STUDENT</div>
+            <div class="tier-option" onclick="selectTier('trader', 'TRADER')">TRADER</div>
+            <div class="tier-option" onclick="selectTier('business', 'BUSINESS')">BUSINESS</div>
+        </div>
     </div>
 
     <div class="auth-footer">
-    <a href="#">Forgot Access Key?</a>
-    <span id="register-link">No account? <a href="register.html">Register GEMSTOK ID</a></span>
+        <a onclick="showForgotView()" style="cursor:pointer;">Forgot Access Key?</a>
+        <span id="register-link">No account? <a href="register.html">Register GEMSTOK ID</a></span>
     </div>
-   
+
+    <div id="forgot-view" style="display:none;">
+        <h3 class="forgot-title">RESET ACCESS KEY</h3>
+        <p class="forgot-sub">Enter your registered email.</p>
+        <div class="input-group" style="margin: 20px 0;">
+            <label>EMAIL</label>
+            <input type="email" id="forgot-email" placeholder="your@email.com">
+        </div>
+        <button class="auth-btn" onclick="submitForgotKey()">SEND RESET LINK</button>
+        <div id="forgot-msg" style="display:none; margin-top:15px; font-size:0.65rem; color:var(--neon-blue); letter-spacing:2px;">
+            IF THIS ACCOUNT EXISTS, CHECK YOUR INBOX.
+        </div>
+        <div style="margin-top:20px;">
+            <a onclick="showLoginView()" style="cursor:pointer; font-size:0.6rem; letter-spacing:2px; color:var(--text-dim);">← RETURN TO ACCESS GATE</a>
+        </div>
+    </div>
+
 </div>
-<script>
-    function toggleTierDropdown() {
-    document.getElementById('tierOptions').classList.toggle('open');
-}
-
-    function selectTier(value, label) {
-    document.getElementById('tierSelected').innerText = label;
-    document.getElementById('tierOptions').classList.remove('open');
-
-    const link = document.getElementById('register-link');
-    const authBtn = document.querySelector('#login-form .auth-btn');
-
-    if (value === 'explorer') {
-        link.style.animation = '';
-        link.innerHTML = 'No account? <a href="register.html">Register GEMSTOK ID</a>';
-        authBtn.style.opacity = '1';
-        authBtn.style.pointerEvents = 'auto';
-    } else {
-        link.innerHTML = '→ <a href="register.html">Register as ' + label + '</a>';
-        link.style.animation = 'flickerLink 1.5s infinite';
-        authBtn.style.opacity = '0.2';
-        authBtn.style.pointerEvents = 'none';
-    }
-}
-</script>

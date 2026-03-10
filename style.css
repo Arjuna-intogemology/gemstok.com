@@ -990,7 +990,6 @@ p, a, span, .hero-description, .btn-vault {
     position: relative;
     margin-bottom: 20px;
     text-align: center;
-    /* Added this to make sure it sits on top */
     z-index: 200; 
 }
 
@@ -1023,22 +1022,34 @@ p, a, span, .hero-description, .btn-vault {
     background: #080808;
     border: 1px solid rgba(0, 217, 255, 0.15);
     border-radius: 12px;
-    z-index: 1000; /* Increased to ensure it floats over everything */
+    z-index: 1000;
     min-width: 160px;
 
-    /* --- THE SCROLL FIXES --- */
-    max-height: 120px;     /* Set this to be SHORTER than your total items */
-    overflow-y: auto;      /* Change 'hidden' to 'auto' to enable scrolling */
-    overflow-x: hidden;    /* Prevent horizontal scroll */
+    /* --- THE INTERNAL SCROLL FIXES --- */
+    max-height: 120px;
+    overflow-y: auto;     /* Enables scrolling */
+    overflow-x: hidden;
+    
+    /* FIXES THE BLEEDING: Clips the content to the border-radius */
+    contain: layout;
+    
+    /* Fallback for browsers that don't support 'contain' for clipping */
+    mask-image: linear-gradient(to bottom, #000 0%, #000 100%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 100%);
 }
 
 /* Custom Scrollbar for Neon Theme */
 .tier-options::-webkit-scrollbar {
-    width: 4px;
+    width: 6px; /* Slightly wider to grab easier */
+}
+.tier-options::-webkit-scrollbar-track {
+    background: #050505;
+    border-radius: 0 12px 12px 0;
 }
 .tier-options::-webkit-scrollbar-thumb {
     background: var(--neon-blue);
     border-radius: 10px;
+    border: 2px solid #080808; /* Creates a "gap" between bar and edge */
 }
 
 .tier-options.open {
@@ -1066,7 +1077,7 @@ p, a, span, .hero-description, .btn-vault {
     50% { opacity: 0.2; }
 }
 
-/* Essential for the popup to not clip the menu */
+/* Important: Prevents clipping by the parent box */
 .auth-box {
     overflow: visible !important;
 }
