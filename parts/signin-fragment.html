@@ -27,12 +27,47 @@
         </button>
     </div>
  
-    <div class="auth-footer">
-        <a href="#">Forgot Access Key?</a>
-        <span>No account? <a href="register.html">Register GEMSTOK ID</a></span>
+    <div class="tier-select">
+    <div class="tier-dropdown" id="tierDropdown" onclick="toggleTierDropdown()">
+        <span id="tierSelected">EXPLORER</span>
+        <span class="tier-arrow">▼</span>
+    </div>
+    <div class="tier-options" id="tierOptions">
+        <div class="tier-option" onclick="selectTier('explorer', 'EXPLORER')">EXPLORER</div>
+        <div class="tier-option" onclick="selectTier('student', 'STUDENT')">STUDENT</div>
+        <div class="tier-option" onclick="selectTier('trader', 'TRADER')">TRADER</div>
+        <div class="tier-option" onclick="selectTier('business', 'BUSINESS')">BUSINESS</div>
+    </div>
     </div>
 
-
-    
+    <div class="auth-footer">
+    <a href="#">Forgot Access Key?</a>
+    <span id="register-link">No account? <a href="register.html">Register GEMSTOK ID</a></span>
+    </div>
+   
 </div>
+<script>
+    function toggleTierDropdown() {
+    document.getElementById('tierOptions').classList.toggle('open');
+}
 
+    function selectTier(value, label) {
+    document.getElementById('tierSelected').innerText = label;
+    document.getElementById('tierOptions').classList.remove('open');
+
+    const link = document.getElementById('register-link');
+    const authBtn = document.querySelector('#login-form .auth-btn');
+
+    if (value === 'explorer') {
+        link.style.animation = '';
+        link.innerHTML = 'No account? <a href="register.html">Register GEMSTOK ID</a>';
+        authBtn.style.opacity = '1';
+        authBtn.style.pointerEvents = 'auto';
+    } else {
+        link.innerHTML = '→ <a href="register.html">Register as ' + label + '</a>';
+        link.style.animation = 'flickerLink 1.5s infinite';
+        authBtn.style.opacity = '0.2';
+        authBtn.style.pointerEvents = 'none';
+    }
+}
+</script>

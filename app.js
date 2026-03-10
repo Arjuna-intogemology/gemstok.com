@@ -262,3 +262,53 @@ window.handleLogout = function() {
     // 3. Redirect to home (optional, but recommended for security)
     window.location.href = 'index.html';
 };
+
+/**--------------------------------------------------------
+ * [MODULE 9: TIER SELECTOR]
+ ---------------------------------------------------------*/
+window.toggleTierDropdown = function() {
+    document.getElementById('tierOptions').classList.toggle('open');
+}
+
+window.selectTier = function(value, label) {
+    document.getElementById('tierSelected').innerText = label;
+    document.getElementById('tierOptions').classList.remove('open');
+
+    const link = document.getElementById('register-link');
+    const authBtn = document.querySelector('#login-form .auth-btn');
+    const socialBtns = document.querySelectorAll('.social-btn');
+    
+    // Select the "Forgot Access Key" link (the first <a> in the footer)
+    const forgotLink = document.querySelector('.auth-footer a:first-child');
+
+    if (value === 'explorer') {
+        // RESET STATE
+        if(forgotLink) forgotLink.style.display = 'inline-block';
+        link.style.animation = '';
+        link.innerHTML = 'No account? <a href="register.html">Register GEMSTOK ID</a>';
+        
+        // Enable Buttons
+        authBtn.style.opacity = '1';
+        authBtn.style.pointerEvents = 'auto';
+        socialBtns.forEach(btn => {
+            btn.style.opacity = '1';
+            btn.style.pointerEvents = 'auto';
+        });
+    } else {
+        // UPGRADE STATE
+        // 1. Vanish the forgot link
+        if(forgotLink) forgotLink.style.display = 'none';
+
+        // 2. Make the text bigger and uppercase (inline style for MVP)
+        link.innerHTML = '→ <a href="register.html" style="font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Register as ' + label + '</a>';
+        link.style.animation = 'flickerLink 1.5s infinite';
+        
+        // 3. Disable Login/Social
+        authBtn.style.opacity = '0.2';
+        authBtn.style.pointerEvents = 'none';
+        socialBtns.forEach(btn => {
+            btn.style.opacity = '0.2';
+            btn.style.pointerEvents = 'none';
+        });
+    }
+}
