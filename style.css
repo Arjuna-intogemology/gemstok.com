@@ -987,42 +987,201 @@ p, a, span, .hero-description, .btn-vault {
 /* =========================================
    10. LEGAL FRAMEWORK STYLING
    ========================================= */
-.legal-container {
-    max-width: 800px;
-    margin: 60px auto;
-    padding: 0 20px;
+
+.legal-section {
+    padding: 100px 25px;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
+.legal-header {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.legal-header h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    color: var(--text-main);
+    margin: 15px 0 12px;
+    letter-spacing: 2px;
+}
+
+.legal-intro {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* CONTAINER */
+.legal-container {
+    max-width: 860px;
+    margin: 0 auto 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* BLOCK */
 .legal-block {
-    margin-bottom: 50px;
-    border-left: 2px solid rgba(255, 255, 255, 0.05);
-    padding-left: 30px;
-    transition: var(--transition-smooth);
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    transition: 0.3s;
+    overflow: hidden;
+    position: relative;
+}
+
+.legal-block::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: transparent;
+    transition: 0.3s;
+    border-radius: 16px 0 0 16px;
 }
 
 .legal-block:hover {
-    border-left-color: var(--neon-blue);
+    border-color: rgba(0, 217, 255, 0.15);
+    background: rgba(0, 217, 255, 0.02);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(0, 217, 255, 0.06);
 }
 
-.legal-block h3 {
+.legal-block:hover::before {
+    background: var(--neon-blue);
+}
+
+.legal-block-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    padding: 32px 36px;
+}
+
+/* NUMBER */
+.legal-num {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem;
-    color: var(--neon-blue);
-    margin-bottom: 15px;
-    letter-spacing: 1px;
+    font-size: 1.6rem;
+    color: rgba(0, 217, 255, 0.12);
+    font-weight: 700;
+    letter-spacing: 2px;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 4px;
+    transition: 0.3s;
+    min-width: 40px;
 }
 
-.legal-block p {
+.legal-block:hover .legal-num {
+    color: rgba(0, 217, 255, 0.35);
+}
+
+/* CONTENT */
+.legal-content {
+    flex: 1;
+}
+
+.legal-content h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    color: var(--text-main);
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+}
+
+.legal-content p {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    line-height: 1.8;
+    font-size: 0.68rem;
+    line-height: 1.9;
     color: var(--text-dim);
 }
 
-.legal-block strong {
-    color: var(--text-main);
+.legal-content strong {
+    color: var(--neon-blue);
+    font-weight: 400;
 }
 
+/* ICON */
+.legal-icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 217, 255, 0.04);
+    border: 1px solid rgba(0, 217, 255, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.legal-icon i {
+    font-size: 1.3rem;
+    color: rgba(0, 217, 255, 0.35);
+    transition: 0.3s;
+}
+
+.legal-block:hover .legal-icon {
+    background: rgba(0, 217, 255, 0.08);
+    border-color: rgba(0, 217, 255, 0.2);
+}
+
+.legal-block:hover .legal-icon i {
+    color: var(--neon-blue);
+}
+
+/* FOOTER STRIP */
+.legal-footer-strip {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.legal-footer-strip span,
+.legal-footer-strip a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.2s;
+}
+
+.legal-footer-strip a:hover {
+    color: var(--neon-blue);
+}
+
+.legal-dot {
+    color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .legal-block-inner {
+        padding: 24px 20px;
+        gap: 16px;
+    }
+    .legal-icon { display: none; }
+    .legal-num { font-size: 1.2rem; }
+}
 /* =========================================
    11. AUTHENTICATION & MODAL SYSTEM
    ========================================= */
